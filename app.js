@@ -110,11 +110,18 @@
   /* ---------- video player ---------- */
   function openVideo(id, onClose) {
     const v = D.VIDEOS.find((x) => x.id === id) || D.VIDEOS[0];
-    const wrap = h(`<div style="display:grid;gap:8px;justify-items:center;width:100%;height:100%;align-content:center"></div>`);
-    const video = h(`<video controls playsinline preload="metadata" poster="${v.poster}"></video>`);
+    const wrap = h(`<div style="display:grid;gap:12px;justify-items:center;width:100%;align-content:start;padding-bottom:24px"></div>`);
+    const video = h(`<video controls playsinline preload="metadata" poster="${v.poster}" style="max-height:60vh"></video>`);
     video.src = v.src; video.muted = true;
     wrap.appendChild(video);
     if (v.ai) wrap.appendChild(h(`<p class="src" style="text-align:center">${esc(D.AI_NOTE)}</p>`));
+    if (v.more) {
+      const info = h(`<div class="card glass article" style="margin:0;max-width:820px"><span class="eyebrow">${esc(v.cat)} · ${fmt(v.dur)}</span><h3>${esc(v.t)}</h3><p>${v.more}</p>
+        ${v.id === "film" ? `<div class="qbox"><b>Көргеннен кейін ойланыңыз</b><ol><li>Бейнедегі қай мәлімет жарияланған дерекке, қайсысы көркем реконструкцияға жатады?</li><li>Ақжібектің ерлігін неге интеллектуалдық ерлік деп атауға болады?</li><li>Бұл тұлға туралы тағы не білгіңіз келеді?</li></ol></div><div class="cta"><button class="btn small" data-art="bio">Толық өмірбаянды оқу</button><button class="btn small" data-art="aimethod">Бейне қалай жасалды?</button></div>` : ""}
+        ${v.id === "process" ? `<div class="cta"><button class="btn small" data-art="aimethod">Бейне қалай жасалды: қадам-қадаммен</button></div>` : ""}
+        ${/^s\d/.test(v.id) ? `<div class="cta"><button class="btn small" data-art="lesson">Бейнені сабақта қолдану әдістемесі</button></div>` : ""}</div>`);
+      wrap.appendChild(info);
+    }
     const playB = h(`<button class="m-btn">⏸ Пауза</button>`);
     const muteB = h(`<button class="m-btn">🔇 Дыбысты қосу</button>`);
     const fsB = h(`<button class="m-btn">⛶ Толық экран</button>`);
@@ -128,7 +135,7 @@
     };
     ["play", "pause", "volumechange"].forEach((ev) => video.addEventListener(ev, sync));
     video.addEventListener("error", () => { wrap.appendChild(h(`<p class="fb no">Видео файлы жүктелмеді. Интернет байланысын тексеріп, қайта ашып көріңіз.</p>`)); });
-    openOverlay({ title: v.t, body: wrap, cap: `${esc(v.d)} · ${fmt(v.dur)}`, tools: [playB, muteB, fsB], keys: { " ": () => playB.click() }, onClose });
+    openOverlay({ title: v.t, body: wrap, cap: "", tools: [playB, muteB, fsB], keys: { " ": () => playB.click() }, onClose });
     video.play().then(sync).catch(sync);
   }
 
@@ -171,12 +178,52 @@
     ovBody.style.placeItems = "start center";
   }
 
+  /* ---------- full articles ---------- */
+  const ART = (window.AKZ_ARTICLES || { A: {}, SRC: {} });
+  function srcList(nums) {
+    if (!nums || !nums.length) return "";
+    return `<div class="srcbox"><b>Дереккөздер</b><ol>${nums.map((n) => { const s = D.SOURCES.find((x) => x.n === n); return s ? `<li value="${n}"><button class="linkish" data-src="${n}">${esc(s.author)} ${esc(s.title)} // ${esc(s.pub)}</button></li>` : ""; }).join("")}</ol></div>`;
+  }
+  function openArticle(key, extra) {
+    const a = ART.A[key];
+    if (!a) return;
+    const rel = (a.related || []).filter((k) => ART.A[k]);
+    const body = h(`<article class="card glass article"></article>`);
+    body.innerHTML = `<span class="eyebrow">${esc(a.eyebrow)}</span><h3>${esc(a.title)}</h3><p class="lead">${esc(a.lead)}</p>
+      <div class="meta-row">${chip(a.status)}<span class="src">${a.src && a.src.length ? "Дереккөз: " + a.src.map((n) => "[" + n + "]").join(" ") : ""}</span></div>
+      ${extra || ""}${a.body}${srcList(a.src)}
+      ${rel.length ? `<div class="relbox"><b>Тақырыпқа қатысты</b><div class="cta">${rel.map((k) => `<button class="btn small" data-art="${k}">${esc(ART.A[k].title)}</button>`).join("")}</div></div>` : ""}`;
+    openOverlay({ title: a.eyebrow, body });
+    ovBody.style.placeItems = "start center"; ovBody.scrollTop = 0;
+  }
+  function openSource(n) {
+    const s = D.SOURCES.find((x) => x.n === n); const m = ART.SRC[n] || {};
+    if (!s) return;
+    openSourceCard({ t: s.title, a: s.author, y: s.year || "—", pub: s.pub, about: m.about, use: m.use, st: m.status || "mod", n });
+  }
+  function openSourceCard(o) {
+    const body = h(`<article class="card glass article"></article>`);
+    body.innerHTML = `<span class="eyebrow">Цифрлық архив · дереккөз${o.n ? " [" + o.n + "]" : ""}</span><h3>${esc(o.t)}</h3>
+      <p class="lead">${esc(o.a)}${o.pub ? " // " + esc(o.pub) : ""}</p><div class="meta-row">${chip(o.st)}<span class="src">Жылы: ${esc(String(o.y))}</span></div>
+      ${o.about ? `<h4>Дереккөзде не айтылады?</h4><p>${esc(o.about)}</p>` : ""}
+      ${o.use ? `<h4>Зерттеуде қалай қолданылды?</h4><p>${esc(o.use)}</p>` : ""}
+      <div class="notebox">Бұл жарияланымның түпнұсқа файлы жобаға жүктелмеген. Мұнда ғылыми жоба мен зерттеу күнделігіндегі талдау негізінде оның мазмұны мен зерттеудегі орны сипатталған. Түпнұсқаны кітапханадан немесе газет мұрағатынан табуға болады.</div>`;
+    openOverlay({ title: "Цифрлық архив", body });
+    ovBody.style.placeItems = "start center"; ovBody.scrollTop = 0;
+  }
+  document.addEventListener("click", (e) => {
+    const ab = e.target.closest("[data-art]");
+    if (ab) { e.preventDefault(); openArticle(ab.getAttribute("data-art")); return; }
+    const sb = e.target.closest("[data-src]");
+    if (sb) { e.preventDefault(); openSource(+sb.getAttribute("data-src")); }
+  });
+
   /* ================= NAV ================= */
   const nav = $("#nav"), burger = $("#burger");
   burger.addEventListener("click", () => { const o = nav.classList.toggle("open"); burger.setAttribute("aria-expanded", o); });
   $$("#navList a").forEach((a) => a.addEventListener("click", () => { nav.classList.remove("open"); burger.setAttribute("aria-expanded", "false"); }));
   const links = $$("#navList a.nl");
-  const secMap = { home: "#home", dossier: "#home", museum: "#museum", timeline: "#timeline", archive: "#archive", cipher: "#cipher", detective: "#detective", ai: "#ai", diary: "#diary", videos: "#videos", achievements: "#achievements" };
+  const secMap = { bio: "#bio", context: "#context", home: "#home", dossier: "#home", museum: "#museum", timeline: "#timeline", archive: "#archive", cipher: "#cipher", detective: "#detective", ai: "#ai", diary: "#diary", videos: "#videos", achievements: "#achievements" };
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver((ents) => {
       ents.forEach((en) => {
@@ -234,10 +281,10 @@
 
   $("#openCase").addEventListener("click", () => {
     const fx = $("#folderFx");
-    if (reduced) { $("#dossier").scrollIntoView(); return; }
+    if (reduced) { $("#bio").scrollIntoView(); return; }
     fx.hidden = false; beep(440, 0.12, 0.03);
-    setTimeout(() => { fx.hidden = true; $("#dossier").scrollIntoView({ behavior: "smooth" }); }, 2100);
-    fx.onclick = () => { fx.hidden = true; $("#dossier").scrollIntoView(); };
+    setTimeout(() => { fx.hidden = true; $("#bio").scrollIntoView({ behavior: "smooth" }); }, 2100);
+    fx.onclick = () => { fx.hidden = true; $("#bio").scrollIntoView(); };
   });
 
   document.addEventListener("click", (e) => {
@@ -257,9 +304,43 @@
   const dg = $("#dossierGrid");
   D.DOSSIER.forEach((d) => {
     const b = h(`<button class="dcard"><span class="k">${esc(d.k)}</span><span class="v">${esc(d.v)}</span><span class="d">${esc(d.d)}</span></button>`);
-    b.onclick = () => openOverlay({ title: "Құпия іс · " + d.k, body: tlDetail(d.tl) });
+    b.onclick = () => openArticle(d.art);
     dg.appendChild(b);
   });
+
+  /* ================= BIOGRAPHY (inline) ================= */
+  (function renderBio() {
+    const a = ART.A.bio; if (!a) return;
+    const text = $("#bioText"), toc = $("#bioToc");
+    text.innerHTML = `<div class="article"><figure class="bio-portrait"><img src="ai-face.jpg" alt="Ақжібек Мұқашеваның ЖИ реконструкциясы" loading="lazy"><figcaption class="ai-note">${esc(D.AI_NOTE)}</figcaption></figure>
+      <p class="lead">${esc(a.lead)}</p>${a.body}${srcList(a.src)}</div>`;
+    $$("h4", text).forEach((hd, i) => { hd.id = "bio-" + (i + 1); const l = h(`<a href="#bio-${i + 1}">${esc(hd.textContent)}</a>`); toc.appendChild(l); });
+    toc.appendChild(h(`<button class="btn small" data-art="sources" style="margin-top:10px">Дереккөздерді салыстыру</button>`));
+  })();
+
+  /* ================= CONTEXT + METHOD + GLOSSARY ================= */
+  (function renderContext() {
+    const card = (k, kicker) => { const a = ART.A[k]; if (!a) return ""; return `<button class="ctx-card" data-art="${k}"><span class="k">${kicker || a.eyebrow}</span><b>${esc(a.title)}</b><span class="d">${esc(a.lead)}</span>${chip(a.status)}<span class="go">Толық оқу →</span></button>`; };
+    $("#ctxGrid").innerHTML = ["redchapel", "kent", "otto", "sorge", "khasan", "radiogram", "cryptographer", "silent", "repression", "akhtandak", "women"].map((k) => card(k)).join("");
+    $("#methodGrid").innerHTML = ["project", "sources", "aiethics", "aimethod", "lesson"].map((k) => card(k)).join("");
+    const G = [
+      ["Шифрлаушы", "Құпия хабарларды шифрлайтын және шифрланған хабарлардың кілтін пайдаланып шешетін маман."],
+      ["Шифр, шифровка", "Кілтсіз оқуға болмайтындай етіп әріптер мен сандар тобына айналдырылған хабар."],
+      ["Радиограмма", "Радиостанция арқылы, көбіне Морзе әліпбиімен берілген хабар."],
+      ["Барлаушы, резидент", "Шет елде жасырын мәлімет жинайтын адам. Резидент – белгілі бір елдегі барлау тобының жетекшісі."],
+      ["Бас барлау басқармасы (ГРУ)", "КСРО әскери барлауының орталық органы. Бұл атау 1942 жылғы ақпаннан бастап қолданылды."],
+      ["«Қызыл капелла»", "Екінші дүниежүзілік соғыс кезінде Еуропада әрекет еткен кеңестік барлау желісінің атауы."],
+      ["НКВД", "КСРО Ішкі істер халық комиссариаты. Саяси қуғын-сүргінді жүзеге асырған негізгі орган."],
+      ["58-бап", "РСФСР Қылмыстық кодексінің (1926) «контрреволюциялық қылмыстар» туралы бабы; саяси қуғын-сүргіннің басты құралы."],
+      ["Лагерь", "Сотталғандар жазасын өтеген еңбекпен түзеу лагерьлерінің жүйесі (ГУЛАГ)."],
+      ["Ақталу (реабилитация)", "Негізсіз сотталған адамның айыптан ресми түрде босатылып, абыройының қалпына келтірілуі."],
+      ["Ақтаңдақ", "Тарихтағы әлі толық зерттелмеген немесе ұзақ уақыт айтылмай келген оқиғалар мен тағдырлар."],
+      ["Деректанулық сын", "Дереккөздің шынайылығын, авторын, уақытын және сенімділігін тексеру әдісі."],
+      ["Тарихи-көркем реконструкция", "Тарихи деректерге сүйеніп жасалған шартты бейне. Ол түпнұсқа құжат немесе фотосурет емес."],
+      ["Промпт, negative prompt", "ЖИ-ге берілетін мәтіндік нұсқаулық және бейнеде болмауы тиіс элементтердің тізімі."]
+    ];
+    $("#gloss").innerHTML = G.map(([t, d]) => `<div><dt>${esc(t)}</dt><dd>${esc(d)}</dd></div>`).join("");
+  })();
 
   /* ================= MUSEUM PREVIEW ================= */
   const dp = $("#doorPreview");
@@ -306,7 +387,7 @@
     tlCard.innerHTML = `<div class="media">${media}</div><div class="body reveal"><div class="big">${esc(t.year)}</div><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p>
       <div class="meta">${chip(t.status)}<span class="src">${refs(t.src)}</span></div>
       ${t.year === "?" ? `<p class="fb info"><b>Ақжібек Мұқашеваның кейінгі тағдыры әлі де қосымша архивтік зерттеуді қажет етеді.</b></p>` : ""}
-      <div class="cta"><button class="btn small" ${i === 0 ? "disabled" : ""} data-tl="${i - 1}">‹ Алдыңғы</button><button class="btn small" ${i === D.TIMELINE.length - 1 ? "disabled" : ""} data-tl="${i + 1}">Келесі ›</button></div></div>`;
+      <div class="cta"><button class="btn small primary" data-art="${t.art}">Толық оқу</button><button class="btn small" ${i === 0 ? "disabled" : ""} data-tl="${i - 1}">‹ Алдыңғы</button><button class="btn small" ${i === D.TIMELINE.length - 1 ? "disabled" : ""} data-tl="${i + 1}">Келесі ›</button></div></div>`;
     $$("[data-tl]", tlCard).forEach((b) => b.onclick = () => renderTl(+b.dataset.tl));
   }
   D.TIMELINE.forEach((t, i) => {
@@ -348,13 +429,14 @@
       $$(".city", box).forEach((g) => g.classList.toggle("on", g.dataset.id === id));
       const rel = D.MAP.links.filter((l) => l.from === id || l.to === id);
       info.innerHTML = `<span class="eyebrow">${esc(p.name)}</span><h3 style="font-size:1.5rem">${esc(p.name)}</h3>${chip(p.kind)}<p>${esc(p.text)}</p>
-        ${rel.length ? `<div class="grid" style="gap:6px">${rel.map((l) => `<span class="src">— ${esc(l.label)}</span>`).join("")}</div>` : ""}`;
+        ${rel.length ? `<div class="grid" style="gap:6px">${rel.map((l) => `<span class="src">— ${esc(l.label)}</span>`).join("")}</div>` : ""}
+        ${p.art ? `<div class="cta"><button class="btn small primary" data-art="${p.art}">Толығырақ оқу</button></div>` : ""}`;
       beep(880, 0.05, 0.03);
     };
     $$(".city", box).forEach((g) => { g.addEventListener("click", () => sel(g.dataset.id)); g.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); sel(g.dataset.id); } }); });
     host.appendChild(wrap);
     const tp = h(`<div class="topics"></div>`);
-    D.MAP.topics.forEach((t) => { const b = h(`<button class="topic"><b>${esc(t.t)}</b><p>${esc(t.d)}</p></button>`); b.onclick = () => b.classList.toggle("open"); tp.appendChild(b); });
+    D.MAP.topics.forEach((t) => { const b = h(`<button class="topic"><b>${esc(t.t)}</b><p>${esc(t.d)}${t.art ? `<span class="more-link" data-art="${t.art}">Толық мақаланы оқу →</span>` : ""}</p></button>`); b.onclick = (e) => { if (!e.target.closest("[data-art]")) b.classList.toggle("open"); }; tp.appendChild(b); });
     host.appendChild(tp);
     if (compact) tp.style.gridTemplateColumns = "1fr";
   }
@@ -364,26 +446,18 @@
   const cab = $("#cabinet"), docsHost = $("#docs");
   function docCard(dc) {
     const has = dc.file || dc.img || dc.video || dc.prompt;
-    const el = h(`<article class="doc"><span class="avail ${has ? "y" : "n"}">${has ? "Файл сайтта ашылады" : "Түпнұсқа файл жүктелмеген"}</span>
+    const el = h(`<article class="doc"><span class="avail ${has ? "y" : "n"}">${has ? "Файл сайтта ашылады" : "Түпнұсқа файл жүктелмеген · сипаттамасы бар"}</span>
       <h4>${esc(dc.t)}</h4><div class="meta">${esc(dc.a)} · ${esc(dc.y)}</div><p>${esc(dc.d)}</p><div class="meta">Дереккөз: ${esc(dc.s)}</div>
-      <button class="btn small ghost">Толығырақ</button></article>`);
-    $("button", el).onclick = () => openArchiveDoc(dc);
+      <div class="cta" style="gap:8px"></div></article>`);
+    const row = $(".cta", el);
+    const btn = (t, fn, primary) => { const b = h(`<button class="btn small ${primary ? "" : "ghost"}">${t}</button>`); b.onclick = fn; row.appendChild(b); };
+    if (dc.file) btn("Құжатты ашу", () => openDoc(dc.file), true);
+    if (dc.video) btn("Видеоны көру", () => openVideo(dc.video), true);
+    if (dc.img) btn("Суретті ашу", () => { const list = [{ src: dc.img, title: dc.t, cap: dc.d, ai: dc.ai }]; if (dc.img2) list.push({ src: dc.img2, title: dc.t, cap: dc.d }); openLightbox(list, 0); }, true);
+    if (dc.n) btn("Толық сипаттама", () => openSource(dc.n), true);
+    if (!dc.n && !has && !dc.art) btn("Толық сипаттама", () => openSourceCard({ t: dc.t, a: dc.a, y: dc.y, about: dc.about || dc.d, use: dc.use, st: dc.st || "mod" }), true);
+    if (dc.art) btn(dc.prompt ? "Промпт және әдістеме" : (has ? "Мақаланы оқу" : "Толық мақала"), () => openArticle(dc.art), !has);
     return el;
-  }
-  function openArchiveDoc(dc) {
-    if (dc.file) return openDoc(dc.file);
-    if (dc.video) return openVideo(dc.video);
-    if (dc.img) {
-      const list = [{ src: dc.img, title: dc.t, cap: dc.d, ai: dc.ai }];
-      if (dc.img2) list.push({ src: dc.img2, title: dc.t, cap: dc.d });
-      return openLightbox(list, 0);
-    }
-    if (dc.prompt) {
-      return openOverlay({ title: dc.t, body: card(`<span class="eyebrow">Жобаның Б қосымшасы</span><h3>Негізгі промпт</h3><div class="prompt-box">${esc(D.PROMPT.main)}<br><br><span class="neg">Negative prompt: ${esc(D.PROMPT.negative)}</span></div>
-        <h3 style="font-size:1.2rem">Бақылау парағы</h3><ul>${D.PROMPT.checklist.map((c) => `<li>${esc(c)}</li>`).join("")}</ul>`) });
-    }
-    openOverlay({ title: "Архив карточкасы", body: card(`<span class="eyebrow">${esc(dc.y)}</span><h3>${esc(dc.t)}</h3><p class="muted">${esc(dc.a)}</p><p>${esc(dc.d)}</p><p class="src">Дереккөз: ${esc(dc.s)}</p>
-      <p class="fb info">Бұл жарияланымның түпнұсқа файлы жобаға жүктелмеген. Карточкада тек ғылыми жобадағы библиографиялық мәлімет пен оның зерттеудегі орны көрсетілген.</p>`) });
   }
   function openDrawer(i) {
     const c = D.ARCHIVE[i];
@@ -394,7 +468,7 @@
     docsHost.appendChild(head);
     if (c.sources) {
       const ol = h(`<ol class="srclist" style="margin-top:16px"></ol>`);
-      D.SOURCES.forEach((s) => ol.appendChild(h(`<li><span class="n">[${s.n}]</span><span>${esc(s.author)} ${esc(s.title)} // ${esc(s.pub)}</span></li>`)));
+      D.SOURCES.forEach((s) => ol.appendChild(h(`<li><span class="n">[${s.n}]</span><button class="linkish" data-src="${s.n}">${esc(s.author)} ${esc(s.title)} // ${esc(s.pub)}</button></li>`)));
       docsHost.appendChild(ol);
       return;
     }
@@ -687,7 +761,7 @@
       const a = D.ALGO[i];
       det.innerHTML = `<div class="im"><img src="${a.img}" alt="${esc(a.k)}">${a.ai ? `<div class="ai-note">${esc(D.AI_NOTE)}</div>` : ""}</div>
         <dl class="reveal"><dt>Кезеңнің мақсаты</dt><dd>${esc(a.goal)}</dd><dt>Қолданылған әдіс</dt><dd>${esc(a.method)}</dd><dt>Орындалған жұмыс</dt><dd>${esc(a.done)}</dd><dt>Алынған нәтиже</dt><dd>${esc(a.result)}</dd>
-        ${a.video ? `<dd><button class="btn small primary" data-video="${a.video}">▶ Видеоны көру</button></dd>` : ""}</dl>`;
+        <dd class="cta" style="margin-top:6px">${a.video ? `<button class="btn small primary" data-video="${a.video}">▶ Видеоны көру</button>` : ""}<button class="btn small" data-art="aimethod">Толық оқу</button></dd></dl>`;
       $(".im img", det).onclick = () => openLightbox([{ src: a.img, title: a.k, cap: a.result, ai: a.ai }], 0);
       $(".im img", det).style.cursor = "zoom-in";
     };

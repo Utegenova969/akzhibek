@@ -143,7 +143,7 @@ function buildHall() {
   pf.add(plane(2.1, 2.7, M(0xffffff, { map: imgTex("ai-face.jpg"), r: 0.8 }), 0, 0, 0.07));
   pf.position.set(3.15, 3.2, endZ + 0.12); g.add(pf);
   const nt = sprite("ЖИ реконструкциясы · түпнұсқа фото емес", { size: 26, scale: 2.4, w: 768, h: 96 }); nt.position.set(3.15, 1.45, endZ + 0.3); g.add(nt);
-  markEx(pf, { kind: "info", t: "Ақжібектің реконструкцияланған бейнесі", d: D.AI_NOTE + " Бейне тарихи деректерге сүйеніп жасалған шартты визуал: 1940-жылдар, Мәскеудегі шифрлау бөлімі, жас қазақ әйел маман.", s: "Ғылыми жобаның 2-суреті", st: "mod" });
+  markEx(pf, { kind: "info", art: "aiethics", t: "Ақжібектің реконструкцияланған бейнесі", d: D.AI_NOTE + " Бейне тарихи деректерге сүйеніп жасалған шартты визуал: 1940-жылдар, Мәскеудегі шифрлау бөлімі, жас қазақ әйел маман.", s: "Ғылыми жобаның 2-суреті", st: "mod" });
   const sp = new THREE.SpotLight(0xffe6b0, 40, 14, 0.45, 0.6, 1.4); sp.position.set(3.15, 6, endZ + 4); sp.target = pf; g.add(sp); g.add(sp.target);
 
   // doors
@@ -334,7 +334,7 @@ function room3() {
     pin.add(cyl(0.025, 0.025, 0.35, M(0xdddddd, { m: 0.7 }), 0, 0.17, 0, 8));
     const head = new THREE.Mesh(new THREE.SphereGeometry(0.1, 16, 12), M(colors[p.kind], { e: colors[p.kind], ei: 0.8 })); head.position.y = 0.38; pin.add(head);
     pin.position.set(tx(p.lon), 1.01, tz(p.lat)); g.add(pin); P[p.id] = pin.position.clone().setY(1.4);
-    markEx(pin, { kind: "info", t: p.name, d: p.text, s: "Тарихи карта", st: p.kind });
+    markEx(pin, { kind: "info", t: p.name, d: p.text, s: "Тарихи карта", st: p.kind, art: p.art });
     anims.push({ view: 3, fn: (t) => { head.position.y = 0.38 + Math.sin(t * 2 + p.lon) * 0.03; } });
   });
   D.MAP.links.forEach((l, i) => {
@@ -354,7 +354,7 @@ function room3() {
     const north = i < 3;
     if (north) { pst.position.set(-4 + i * 4, 3.0, -6.9); }
     else { pst.position.set(-6.9, 3.0, -3.5 + (i - 3) * 3); pst.rotation.y = Math.PI / 2; }
-    g.add(pst); markEx(pst, { kind: "info", t: tp.t, d: tp.d, s: "Ақпараттық майдан", st: i < 2 ? "pub" : "mod" });
+    g.add(pst); markEx(pst, { kind: "info", t: tp.t, d: tp.d, s: "Ақпараттық майдан", st: i < 2 ? "pub" : "mod", art: tp.art });
   });
   // radio corner
   const rd = new THREE.Group(); rd.add(box(1, 0.6, 0.5, M(0x3a2e20), 0, 0.3, 0)); const led = new THREE.Mesh(new THREE.SphereGeometry(0.03, 8, 8), M(0x35c7d8, { e: 0x35c7d8, ei: 2 })); led.position.set(0.4, 0.5, 0.26); rd.add(led);
@@ -501,14 +501,14 @@ function showExhibit(ex) {
     openPanel(`<span class="eyebrow">Алгоритм · ${ex.i + 1}/7</span><h3>${App.esc(a.k)}</h3>
       <dl style="margin:0;display:grid;gap:8px"><dt class="eyebrow" style="font-size:.7rem">Мақсаты</dt><dd style="margin:0">${App.esc(a.goal)}</dd><dt class="eyebrow" style="font-size:.7rem">Әдіс</dt><dd style="margin:0">${App.esc(a.method)}</dd><dt class="eyebrow" style="font-size:.7rem">Орындалған жұмыс</dt><dd style="margin:0">${App.esc(a.done)}</dd><dt class="eyebrow" style="font-size:.7rem">Нәтиже</dt><dd style="margin:0">${App.esc(a.result)}</dd></dl>
       <figure style="margin:0;border-radius:10px;overflow:hidden;border:1px solid var(--line)"><img src="${a.img}" alt="" style="width:100%;display:block">${a.ai ? `<figcaption class="ai-note">${App.esc(D.AI_NOTE)}</figcaption>` : ""}</figure>
-      ${a.video ? `<button class="btn small primary" data-video="${a.video}">▶ Видеоны көру</button>` : ""}`);
+      <div class="cta">${a.video ? `<button class="btn small primary" data-video="${a.video}">▶ Видеоны көру</button>` : ""}<button class="btn small" data-art="aimethod">Толық оқу</button></div>`);
     setGuide(`${a.k}. ${a.goal} ${a.result}`);
     return;
   }
   openPanel(`<span class="eyebrow">${ex.room ? ex.room + "-бөлме · экспонат" : "Экспонат"}</span><h3>${App.esc(ex.t)}</h3>${App.chip(ex.st)}<p>${App.esc(ex.d)}</p><p class="src">Дереккөз: ${App.esc(ex.s || "—")}</p>
     ${ex.ai ? `<p class="ai-note" style="border-radius:8px">${App.esc(D.AI_NOTE)}</p>` : ""}
     ${ex.key === "screen" ? `<div class="cta"><button class="btn small primary" data-video="film">▶ Тарихи бейнені көру</button><button class="btn small" data-video="process">Жасалу процесі</button></div>` : ""}
-    ${ex.room ? `<button class="btn small" id="mpTask">Бөлме тапсырмасын ашу</button>` : ""}`, (b) => {
+    <div class="cta">${ex.art ? `<button class="btn small primary" data-art="${ex.art}">Толық мақаланы оқу</button>` : ""}${ex.room ? `<button class="btn small" id="mpTask">Бөлме тапсырмасын ашу</button>` : ""}</div>`, (b) => {
       const t = b.querySelector("#mpTask"); if (t) t.onclick = () => openTask();
     });
   setGuide(`${ex.t}. ${ex.d}`);

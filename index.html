@@ -64,6 +64,54 @@ p{margin:0}
 .grid{display:grid;gap:18px}
 .mono{font-family:var(--f-mono)}
 
+
+/* ARTICLES */
+.article{max-width:800px;width:100%;text-align:left;line-height:1.7}
+.article h3{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-top:4px}
+.article h4{font-family:var(--f-disp);font-size:1.3rem;color:var(--gold2);margin:22px 0 8px;font-weight:700}
+.article p{margin:0 0 12px;color:#e3e8ef}
+.article .lead{font-size:1.12rem;color:var(--fg);border-left:2px solid var(--gold);padding-left:14px}
+.article .meta-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:6px}
+.factbox,.notebox,.qbox,.srcbox,.relbox{border-radius:12px;padding:14px 18px;margin:16px 0}
+.factbox{background:rgba(212,175,55,.08);border:1px solid var(--line)}
+.factbox b,.qbox b,.srcbox b,.relbox b{display:block;font-family:var(--f-label);letter-spacing:.1em;text-transform:uppercase;font-size:.76rem;color:var(--gold);margin-bottom:8px;font-weight:500}
+.factbox ul,.qbox ol,.srcbox ol{margin:0;padding-left:20px;display:grid;gap:6px}
+.notebox{background:rgba(53,199,216,.07);border:1px solid rgba(53,199,216,.35);color:#d6eef2}
+.qbox{background:rgba(112,84,59,.18);border:1px dashed var(--brown)}
+.srcbox{background:rgba(7,17,31,.5);border:1px solid rgba(212,175,55,.15);font-size:.88rem}
+.relbox{padding-inline:0}
+.art-list{padding-left:22px;display:grid;gap:8px;margin:0 0 12px}
+.art-quote{margin:18px 0;padding:14px 20px;border-left:3px solid var(--gold);font-family:var(--f-disp);font-style:italic;font-size:1.25rem;color:var(--gold2)}
+.art-table{margin:14px 0}.art-table table{min-width:520px}
+.ctx-tag{display:inline-block;font-family:var(--f-label);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);border:1px solid rgba(53,199,216,.5);border-radius:999px;padding:1px 8px;vertical-align:middle;margin-left:6px}
+.linkish{background:none;border:0;padding:0;text-align:left;color:inherit;text-decoration:underline dotted rgba(212,175,55,.6);text-underline-offset:3px;cursor:pointer;font:inherit}
+.linkish:hover{color:var(--gold2)}
+.more-link{display:block;margin-top:10px;color:var(--gold2);font-family:var(--f-label);letter-spacing:.06em;cursor:pointer}
+/* BIO section */
+.bio-layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:start}
+.bio-toc{position:sticky;top:calc(80px + env(safe-area-inset-top,0px));display:grid;gap:4px;padding:16px;border-radius:12px;background:var(--glass);border:1px solid var(--line)}
+.bio-toc b{font-family:var(--f-label);letter-spacing:.12em;text-transform:uppercase;font-size:.72rem;color:var(--gold);margin-bottom:6px}
+.bio-toc a{color:var(--muted);text-decoration:none;font-size:.9rem;padding:4px 0;border-left:2px solid transparent;padding-left:10px}
+.bio-toc a:hover{color:var(--gold2);border-left-color:var(--gold)}
+.bio-text{font-size:1.04rem}
+.bio-text .article{max-width:none}
+.bio-portrait{float:right;width:min(280px,42%);margin:0 0 14px 22px;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.bio-portrait img{display:block;width:100%}
+@media (max-width:860px){.bio-layout{grid-template-columns:minmax(0,1fr)}.bio-toc{position:static}.bio-portrait{float:none;width:100%;max-width:360px;margin:0 0 14px}}
+/* CONTEXT section */
+.ctx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.ctx-card{display:grid;gap:8px;align-content:start;text-align:left;padding:20px;border-radius:14px;background:var(--glass);border:1px solid var(--line);transition:transform .25s,border-color .25s}
+.ctx-card:hover{transform:translateY(-3px);border-color:var(--gold)}
+.ctx-card .k{font-family:var(--f-label);letter-spacing:.12em;text-transform:uppercase;font-size:.7rem;color:var(--cyan)}
+.ctx-card b{font-family:var(--f-disp);font-size:1.25rem;line-height:1.25}
+.ctx-card span.d{font-size:.92rem;color:var(--muted)}
+.ctx-card .go{font-family:var(--f-label);letter-spacing:.08em;text-transform:uppercase;font-size:.74rem;color:var(--gold2)}
+.gloss{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:0}
+.gloss div{padding:14px 16px;border-radius:10px;border:1px solid rgba(212,175,55,.18);background:rgba(16,31,53,.45)}
+.gloss dt{font-family:var(--f-disp);font-weight:700;color:var(--gold2);margin-bottom:4px}
+.gloss dd{margin:0;font-size:.92rem;color:#d7dde6}
+.sec-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:-12px;margin-bottom:22px}
+
 /* NAV */
 .nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(7,17,31,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(212,175,55,.16)}
 .nav .wrap{display:flex;align-items:center;gap:18px;height:60px}
@@ -444,8 +492,10 @@ td.dt{font-family:var(--f-mono);white-space:nowrap;color:var(--cyan)}
     <a class="brand" href="#home"><i></i>Үнсіз ерлік</a>
     <ul id="navList">
       <li><a class="nl" href="#home">Басты бет</a></li>
+      <li><a class="nl" href="#bio">Тұлға туралы</a></li>
       <li><a class="nl" href="#museum">Виртуалды музей</a></li>
       <li><a class="nl" href="#timeline">Өмір жолы</a></li>
+      <li><a class="nl" href="#context">Тарихи контекст</a></li>
       <li><a class="nl" href="#archive">Құпия архив</a></li>
       <li><a class="nl" href="#cipher">Шифрлау зертханасы</a></li>
       <li><a class="nl" href="#detective">Тарихи детектив</a></li>
@@ -530,7 +580,21 @@ td.dt{font-family:var(--f-mono);white-space:nowrap;color:var(--cyan)}
   </div>
 </section>
 
-<section class="sec band" id="museum">
+
+<section class="sec band" id="bio">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Тұлға туралы · толық өмірбаян</span>
+      <h2>Ақжібек Темірғалиқызы Мұқашева</h2>
+      <p>Ғылыми жобада жүйеленген барлық дерек бір жерде: туған жерінен кейінгі тағдырына дейін. Әр мәліметтің дереккөзі мен мәртебесі көрсетілген.</p>
+    </div>
+    <div class="bio-layout">
+      <nav class="bio-toc" id="bioToc" aria-label="Өмірбаян мазмұны"><b>Мазмұны</b></nav>
+      <div class="bio-text" id="bioText"></div>
+    </div>
+  </div>
+</section>
+<section class="sec" id="museum">
   <div class="wrap museum-prev">
     <div class="sec-head" style="margin:0">
       <span class="eyebrow">Виртуалды 3D музей</span>
@@ -543,7 +607,7 @@ td.dt{font-family:var(--f-mono);white-space:nowrap;color:var(--cyan)}
   </div>
 </section>
 
-<section class="sec" id="timeline">
+<section class="sec band" id="timeline">
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow">Интерактивті хронология</span>
@@ -562,6 +626,27 @@ td.dt{font-family:var(--f-mono);white-space:nowrap;color:var(--cyan)}
   </div>
 </section>
 
+
+<section class="sec" id="context">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Тарихи контекст</span>
+      <h2>Ақжібектің дәуірі мен ортасы</h2>
+      <p>Оның тағдырын түсіну үшін маңызды тақырыптар. Әр карточка толық мақаланы ашады. «Жалпы тарихи контекст» белгісі бар мәліметтер дәуірді түсіндіреді, бірақ Ақжібектің жеке өмірбаянына дәлел ретінде қолданылмайды.</p>
+    </div>
+    <div class="ctx-grid" id="ctxGrid"></div>
+    <div class="sec-head" style="margin-top:clamp(48px,7vw,80px)">
+      <span class="eyebrow">Ғылыми жоба және әдістеме</span>
+      <h2 style="font-size:clamp(1.6rem,3.4vw,2.4rem)">Зерттеу қалай жүргізілді?</h2>
+    </div>
+    <div class="ctx-grid" id="methodGrid"></div>
+    <div class="sec-head" style="margin-top:clamp(48px,7vw,80px)">
+      <span class="eyebrow">Сөздік</span>
+      <h2 style="font-size:clamp(1.6rem,3.4vw,2.4rem)">Негізгі ұғымдар</h2>
+    </div>
+    <dl class="gloss" id="gloss"></dl>
+  </div>
+</section>
 <section class="sec band" id="archive">
   <div class="wrap">
     <div class="sec-head">
@@ -581,6 +666,7 @@ td.dt{font-family:var(--f-mono);white-space:nowrap;color:var(--cyan)}
       <h2>Шифрлаушы болып көр!</h2>
       <p>Үш деңгей: «Құпия сөз» (10 ұпай), «Радиограмма» (20 ұпай), «Құпия операция» (30 ұпай). Тапсырмалар шартты, оқу мақсатында құрастырылған; нақты тарихи шифрларды қайталамайды.</p>
     </div>
+    <div class="sec-actions"><button class="btn small" data-art="radiogram">Шифрлау және радиограммалар туралы</button><button class="btn small" data-art="cryptographer">Шифрлаушы мамандығы</button></div>
     <div class="game glass" id="cipherGame"></div>
   </div>
 </section>
@@ -592,6 +678,7 @@ td.dt{font-family:var(--f-mono);white-space:nowrap;color:var(--cyan)}
       <h2>Дерекпен жұмыс істеп көр</h2>
       <p>Үш ойын: тұжырымды санатқа бөлу, жоғалған хронологияны қалпына келтіру және архивтік тергеу.</p>
     </div>
+    <div class="sec-actions"><button class="btn small" data-art="sources">Дереккөздерді салыстыру әдісі</button><button class="btn small" data-art="akhtandak">«Ақтаңдақтар» және тарихи жады</button></div>
     <div class="game glass" id="detGame"></div>
   </div>
 </section>
@@ -609,6 +696,7 @@ td.dt{font-family:var(--f-mono);white-space:nowrap;color:var(--cyan)}
         <span class="eyebrow">Реконструкцияны салыстыр</span>
         <h3 style="font-size:1.7rem">Зерттеу материалынан визуалды бейнеге</h3>
         <p class="muted">Сырғытпаны жылжытыңыз: сол жақта – промптқа енгізілген тарихи деректер, оң жақта – осы сипаттама негізінде алынған ЖИ бейнесі. Түпнұсқа фото болмағандықтан, «бұрын және кейін» салыстыруы жасалмайды.</p>
+        <div class="cta"><button class="btn small" data-art="aiethics">ЖИ этикасы мен шектеулері</button><button class="btn small" data-art="aimethod">Бейне қалай жасалды?</button><button class="btn small" data-art="lesson">Сабақта қолдану</button></div>
         <div id="compareHost"></div>
       </div>
       <div class="grid" style="gap:14px">
@@ -700,6 +788,7 @@ td.dt{font-family:var(--f-mono);white-space:nowrap;color:var(--cyan)}
         <span class="k" style="margin-top:12px">Рецензент</span><span class="muted">Имангалиев А. Т., PhD, «Astana IT University» ЖШС</span></div>
       <div class="glass"><span class="k">Білім беру ұйымы</span><span class="v">Астана қаласы, №100 жалпы орта білім беретін мектеп</span><span class="muted">Нұра ауданы</span><span class="k" style="margin-top:12px">Жылы</span><span class="v">2026</span><span class="k" style="margin-top:12px">Бағыт</span><span class="muted">Қоғамдық-гуманитарлық бағыт</span></div>
     </div>
+    <div class="cta" style="margin-top:18px"><button class="btn small" data-art="project">Ғылыми жоба туралы толық</button><button class="btn small" data-src="1">Негізгі дереккөз</button></div>
     <div class="foot"><span>Сайттағы барлық адам бейнесіндегі ЖИ визуалдары – тарихи-көркем реконструкция, түпнұсқа фотосурет емес.</span><a href="#home">↑ Басты бетке</a></div>
   </div>
 </footer>
@@ -734,6 +823,7 @@ td.dt{font-family:var(--f-mono);white-space:nowrap;color:var(--cyan)}
 
 <script src="config.js"></script>
 <script src="data.js"></script>
+<script src="articles.js"></script>
 <script src="app.js"></script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
 <script type="module" src="museum.js"></script>
