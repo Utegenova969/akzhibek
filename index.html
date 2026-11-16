@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2212%22 fill=%22%2307111F%22/%3E%3Ctext x=%2232%22 y=%2244%22 font-size=%2236%22 text-anchor=%22middle%22 fill=%22%23D4AF37%22 font-family=%22Georgia%22%3EА%3C/text%3E%3C/svg%3E">
+<title>Ақжібек Мұқашева: Үнсіз ерлік</title>
+<meta name="description" content="«Тарихты тірілткен ЖИ: Ақжібек Мұқашеваның үнсіз ерлігі» ғылыми жобасының интерактивті тарихи-мемориалдық платформасы">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,500;0,700;0,800;1,500&family=Oswald:wght@400;500;600&family=PT+Sans:ital,wght@0,400;0,700;1,400&family=PT+Mono&display=swap">
+<style>
+/* Layout: cinematic dark archive — full-bleed bands, centered 1180px column, glass panels with gold hairlines. */
+:root{
+  --bg:#07111F; --bg2:#101F35; --bg3:#0B1828;
+  --gold:#D4AF37; --gold2:#F4D58D; --brown:#70543B; --paper:#E9DDC0; --ink:#1B140C;
+  --fg:#F5F5F5; --muted:#A9B4C4; --dim:#6E7C90; --cyan:#35C7D8;
+  --ok:#5FD39A; --warn:#E8B04B; --bad:#E36D5E;
+  --line:rgba(212,175,55,.28); --glass:rgba(16,31,53,.62); --glass2:rgba(16,31,53,.86);
+  --f-disp:"Noto Serif Display","PT Serif",Georgia,serif;
+  --f-label:"Oswald","Roboto Condensed","Arial Narrow",sans-serif;
+  --f-body:"PT Sans","Noto Sans",system-ui,sans-serif;
+  --f-mono:"PT Mono","Courier New",monospace;
+  --r:14px; --maxw:1180px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+img{max-width:100%}
+.hero .wrap>*,.museum-prev>*,.doors>*,.dossier>*,.two>*,.mapwrap>*,.tl-card>*,.algo-detail>*,.auth-grid>*,.cabinet>*,.docs>*,.vids>*,.msgs3>*,.cat3>*,.topics>*,.ai-grid>*,.book-inner>*,.grid>*,.algo>*,.tl>*{min-width:0}
+body{margin:0}
+html{scroll-behavior:smooth;background:var(--bg)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:17px;line-height:1.6;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+a{color:var(--gold2)}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--f-disp);text-wrap:balance;line-height:1.12;margin:0}
+p{margin:0}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--f-label);letter-spacing:.22em;text-transform:uppercase;font-size:.78rem;color:var(--gold);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--gold)}
+.sec{padding-block:clamp(64px,9vw,120px);position:relative}
+.sec-head{display:grid;gap:14px;margin-bottom:clamp(28px,4vw,48px);max-width:760px}
+.sec-head h2{font-size:clamp(2rem,4.6vw,3.4rem);font-weight:700}
+.sec-head p{color:var(--muted);max-width:62ch}
+.band{background:linear-gradient(180deg,var(--bg) 0%,var(--bg3) 50%,var(--bg) 100%)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px 22px;border-radius:999px;border:1px solid var(--line);background:rgba(212,175,55,.06);font-family:var(--f-label);letter-spacing:.12em;text-transform:uppercase;font-size:.86rem;transition:transform .25s,background .25s,border-color .25s,box-shadow .25s;text-decoration:none;color:var(--fg)}
+.btn:hover{transform:translateY(-2px);border-color:var(--gold);background:rgba(212,175,55,.14);box-shadow:0 10px 30px -12px rgba(212,175,55,.5)}
+.btn.primary{background:linear-gradient(180deg,#E5C35A,var(--gold));color:#1a1306;border-color:transparent;font-weight:600}
+.btn.primary:hover{background:linear-gradient(180deg,var(--gold2),#DDB948)}
+.btn.small{padding:8px 14px;font-size:.74rem}
+.btn.ghost{background:transparent}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none}
+.glass{background:var(--glass);border:1px solid var(--line);border-radius:var(--r);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-label);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.st-pub{color:var(--ok)} .st-unc{color:var(--warn)} .st-ins{color:#B9A6C9} .st-mod{color:var(--cyan)}
+.chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.ai-note{font-size:.76rem;color:var(--gold2);background:rgba(7,17,31,.82);border-top:1px solid var(--line);padding:6px 10px;line-height:1.35}
+.src{font-family:var(--f-mono);font-size:.8rem;color:var(--muted)}
+.muted{color:var(--muted)}
+.grid{display:grid;gap:18px}
+.mono{font-family:var(--f-mono)}
+
+/* NAV */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(7,17,31,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(212,175,55,.16)}
+.nav .wrap{display:flex;align-items:center;gap:18px;height:60px}
+.brand{font-family:var(--f-label);letter-spacing:.18em;font-size:.86rem;text-transform:uppercase;color:var(--gold2);text-decoration:none;white-space:nowrap;display:flex;align-items:center;gap:10px}
+.brand i{width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:blink 2.2s infinite}
+@keyframes blink{0%,60%,100%{opacity:1}70%,90%{opacity:.25}}
+.nav ul{display:flex;gap:2px;list-style:none;margin:0 0 0 auto;padding:0;overflow-x:auto;scrollbar-width:none}
+.nav ul::-webkit-scrollbar{display:none}
+.nav a.nl{display:block;padding:8px 10px;font-family:var(--f-label);font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-radius:8px;white-space:nowrap}
+.nav a.nl:hover,.nav a.nl.on{color:var(--gold2);background:rgba(212,175,55,.08)}
+.burger{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:10px;width:44px;height:40px}
+.burger span{display:block;width:18px;height:2px;background:var(--gold2);margin:4px auto}
+@media (max-width:1180px){.nav ul{display:none}.burger{display:block}
+  .nav.open ul{display:flex;position:fixed;top:calc(60px + env(safe-area-inset-top,0px));left:0;right:0;flex-direction:column;background:var(--glass2);backdrop-filter:blur(14px);padding:12px max(16px,env(safe-area-inset-right,0px)) 18px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line);max-height:calc(100dvh - 60px);overflow:auto}
+  .nav.open a.nl{font-size:.95rem;padding:12px}}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;background:radial-gradient(1200px 600px at 75% 30%,rgba(53,199,216,.10),transparent 60%),radial-gradient(900px 500px at 20% 90%,rgba(212,175,55,.10),transparent 60%),var(--bg)}
+#cipherCanvas{position:absolute;inset:0;width:100%;height:100%;opacity:.55;pointer-events:none}
+.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,4vw,56px);align-items:center;padding-block:clamp(48px,7vw,96px) 0}
+.hero-copy{display:grid;gap:22px;min-width:0}
+.case-id{font-family:var(--f-mono);font-size:.82rem;color:var(--cyan);letter-spacing:.08em}
+.whisper{font-family:var(--f-label);letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-size:clamp(.82rem,1.6vw,1rem);min-height:1.6em}
+.whisper .cur{display:inline-block;width:.55em;height:1em;background:var(--gold);vertical-align:-2px;margin-left:4px;animation:blink 1s steps(1) infinite}
+.hero h1{font-size:clamp(2.7rem,8.2vw,6.4rem);font-weight:800;letter-spacing:-.01em;line-height:.98}
+.hero h1 .l2{display:block;font-style:italic;font-weight:500;color:var(--gold);font-size:.62em;letter-spacing:.01em;margin-top:.12em}
+.hero .slogan{font-size:clamp(1.05rem,2vw,1.28rem);color:var(--muted);max-width:44ch;border-left:2px solid var(--gold);padding-left:16px}
+.hero .proj{font-family:var(--f-label);letter-spacing:.12em;text-transform:uppercase;font-size:.8rem;color:var(--gold2)}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.portrait{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);box-shadow:0 40px 90px -40px rgba(53,199,216,.45),0 0 0 8px rgba(16,31,53,.5);aspect-ratio:4/5;max-width:100%;background:#0b1626}
+.portrait img{width:100%;height:100%;object-fit:cover;object-position:50% 25%;display:block;filter:saturate(.9) contrast(1.05);animation:breathe 14s ease-in-out infinite alternate}
+@keyframes breathe{from{transform:scale(1.02)}to{transform:scale(1.09)}}
+.portrait .ai-note{position:absolute;left:0;right:0;bottom:0}
+.portrait .stamp{position:absolute;top:16px;left:16px;font-family:var(--f-label);font-size:.72rem;letter-spacing:.2em;color:var(--bad);border:2px solid var(--bad);padding:4px 10px;transform:rotate(-6deg);background:rgba(7,17,31,.5)}
+.desk{position:relative;overflow:hidden;margin-top:clamp(20px,4vw,40px);height:clamp(150px,22vw,250px)}
+.desk svg{width:100%;height:100%;display:block}
+.radio-led{animation:blink 1.4s infinite}
+.lamp-glow{animation:flick 5s infinite}
+@keyframes flick{0%,100%{opacity:.9}47%{opacity:.9}48%{opacity:.5}50%{opacity:.95}52%{opacity:.6}54%{opacity:.9}}
+.wave path{stroke-dasharray:6 6;animation:dash 1.2s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-24}}
+@media (max-width:860px){.hero .wrap{grid-template-columns:minmax(0,1fr)}.portrait{max-width:420px;aspect-ratio:1/1}}
+
+/* folder transition */
+#folderFx{position:fixed;inset:0;z-index:90;display:grid;place-items:center;background:rgba(7,17,31,.92);perspective:1400px}
+#folderFx .folder{width:min(520px,86vw);aspect-ratio:1.35;position:relative;transform-style:preserve-3d}
+#folderFx .back,#folderFx .front{position:absolute;inset:0;border-radius:6px 18px 6px 6px}
+#folderFx .back{background:#8a6a45;box-shadow:0 40px 80px rgba(0,0,0,.6)}
+#folderFx .paper{position:absolute;inset:8% 6% 6%;background:var(--paper);color:var(--ink);padding:6%;font-family:var(--f-mono);font-size:clamp(.7rem,1.8vw,.9rem);line-height:1.5;transform:translateY(20%);opacity:0;animation:paperUp 1.1s .65s forwards}
+#folderFx .front{background:linear-gradient(160deg,#a8845a,#7b5c3a);transform-origin:left center;animation:openF 1.1s .15s cubic-bezier(.6,.1,.3,1) forwards;display:grid;place-items:center;color:#2a1d0e;font-family:var(--f-label);letter-spacing:.3em;font-size:clamp(1rem,3vw,1.5rem);backface-visibility:hidden}
+#folderFx .front b{border:3px solid #7a1f15;color:#7a1f15;padding:6px 16px;transform:rotate(-8deg)}
+@keyframes openF{to{transform:rotateY(-165deg)}}
+@keyframes paperUp{to{transform:translateY(-6%);opacity:1}}
+
+/* DOSSIER */
+.dossier{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.dcard{min-width:0;padding:18px 16px;display:grid;gap:6px;text-align:left;background:var(--glass);border:1px solid var(--line);border-radius:var(--r);transition:transform .25s,border-color .25s}
+.dcard:hover{transform:translateY(-4px);border-color:var(--gold)}
+.dcard .k{font-family:var(--f-label);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.dcard .v{font-family:var(--f-disp);font-size:clamp(1.25rem,1.7vw,1.7rem);overflow-wrap:anywhere;hyphens:auto;color:var(--gold2);line-height:1.1}
+.dcard .d{font-size:.88rem;color:var(--muted)}
+@media (max-width:980px){.dossier{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.dossier{grid-template-columns:repeat(2,1fr)}}
+
+/* MUSEUM PREVIEW */
+.museum-prev{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+.doors{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;perspective:800px}
+.door{overflow:hidden;overflow-wrap:anywhere;aspect-ratio:.52;border-radius:60px 60px 6px 6px;border:1px solid var(--line);background:linear-gradient(180deg,#1a2c47,#0c1829);position:relative;display:flex;align-items:flex-end;justify-content:center;padding:12px 6px;text-align:center;font-family:var(--f-label);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gold2);transition:transform .35s,box-shadow .35s}
+.door::before{content:attr(data-n);position:absolute;top:18%;left:50%;transform:translateX(-50%);font-family:var(--f-disp);font-size:2rem;color:var(--gold)}
+.door:hover{transform:rotateY(-14deg) translateZ(10px);box-shadow:0 0 40px -10px var(--gold)}
+@media (max-width:860px){.museum-prev{grid-template-columns:1fr}}
+@media (max-width:480px){.door{font-size:.6rem}.door::before{font-size:1.4rem}}
+
+/* MUSEUM STAGE */
+#museumStage{position:fixed;inset:0;z-index:80;background:#04090f}
+#museumStage canvas{display:block;width:100%;height:100%;touch-action:none}
+.m-top{position:absolute;top:0;left:0;right:0;display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:calc(10px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) 10px max(12px,env(safe-area-inset-left,0px));background:linear-gradient(180deg,rgba(4,9,15,.9),rgba(4,9,15,0))}
+.m-title{font-family:var(--f-label);letter-spacing:.14em;text-transform:uppercase;font-size:.9rem;color:var(--gold2);margin-right:auto;min-width:0}
+.m-title small{display:block;color:var(--muted);letter-spacing:.06em;text-transform:none;font-family:var(--f-body);font-size:.8rem}
+.m-btn{background:rgba(16,31,53,.8);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-family:var(--f-label);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--fg)}
+.m-btn:hover,.m-btn.on{border-color:var(--gold);color:var(--gold2)}
+.m-bottom{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:flex-end;gap:10px;padding:10px max(12px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));pointer-events:none}
+.m-bottom>*{pointer-events:auto}
+.m-zoom{display:flex;flex-direction:column;gap:6px}
+.m-zoom button{width:42px;height:42px;border-radius:10px;background:rgba(16,31,53,.85);border:1px solid var(--line);font-size:1.2rem}
+.m-guide{flex:1;max-width:640px;margin-inline:auto;padding:12px 16px;font-size:.92rem;line-height:1.5}
+.m-guide .gt{display:flex;align-items:center;gap:10px;margin-bottom:4px;font-family:var(--f-label);letter-spacing:.12em;text-transform:uppercase;font-size:.72rem;color:var(--gold)}
+.m-hint{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;font-family:var(--f-label);letter-spacing:.14em;text-transform:uppercase;color:var(--gold2);font-size:.8rem;background:rgba(4,9,15,.6);padding:8px 14px;border-radius:999px;transition:opacity .6s}
+.m-fade{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none;transition:opacity .45s}
+.m-label{position:absolute;pointer-events:none;transform:translate(-50%,-140%);font-family:var(--f-label);font-size:.72rem;letter-spacing:.08em;background:rgba(4,9,15,.85);border:1px solid var(--gold);color:var(--gold2);padding:4px 10px;border-radius:999px;white-space:nowrap;opacity:0;transition:opacity .15s}
+.m-panel{position:absolute;right:max(12px,env(safe-area-inset-right,0px));top:calc(78px + env(safe-area-inset-top,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));width:min(440px,calc(100vw - 24px));overflow:auto;padding:22px;display:grid;align-content:start;gap:14px;background:var(--glass2)}
+.m-panel h3{font-size:1.5rem}
+.m-panel .close{position:sticky;top:0;justify-self:end;margin:-8px -8px 0 0}
+.m-menu{position:absolute;top:calc(64px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px));padding:8px;display:grid;gap:4px;min-width:240px;background:var(--glass2)}
+.m-menu button{text-align:left;padding:10px 12px;border-radius:8px;background:none;border:0}
+.m-menu button:hover{background:rgba(212,175,55,.1)}
+.m-fallback{position:absolute;inset:80px 16px 16px;overflow:auto;padding:20px}
+@media (max-width:640px){.m-guide{font-size:.82rem;padding:10px 12px}.m-panel{top:auto;max-height:68vh;left:max(12px,env(safe-area-inset-left,0px));width:auto}.m-btn{padding:7px 9px;font-size:.66rem}}
+
+/* TIMELINE */
+.tl{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:0;margin-bottom:28px}
+.tl::before{content:"";position:absolute;left:4%;right:4%;top:46px;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold) 70%,var(--warn) 85%,var(--dim))}
+.tl button{background:none;border:0;display:grid;justify-items:center;gap:10px;padding:0 4px;position:relative}
+.tl .yr{font-family:var(--f-disp);font-size:clamp(1.2rem,2.6vw,2rem);color:var(--muted);transition:color .3s}
+.tl .dot{width:18px;height:18px;border-radius:50%;background:var(--bg);border:2px solid var(--gold);transition:transform .3s,background .3s}
+.tl .lab{font-size:.8rem;color:var(--dim);text-align:center;font-family:var(--f-label);letter-spacing:.05em;text-transform:uppercase}
+.tl button.on .yr,.tl button:hover .yr{color:var(--gold2)}
+.tl button.on .dot{background:var(--gold);transform:scale(1.35);box-shadow:0 0 18px var(--gold)}
+.tl-card{display:grid;grid-template-columns:1fr 1.1fr;gap:0;overflow:hidden}
+.tl-card .media{position:relative;min-height:280px;background:#0b1626}
+.tl-card .media img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0}
+.tl-card .media .ai-note{position:absolute;left:0;right:0;bottom:0}
+.tl-card .body{padding:clamp(20px,3vw,36px);display:grid;gap:14px;align-content:start;min-width:0}
+.tl-card .big{font-family:var(--f-disp);font-size:clamp(3rem,7vw,5rem);line-height:1;color:var(--gold)}
+.tl-card h3{font-size:1.6rem}
+.tl-card .meta{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.paperdoc{position:absolute;inset:0;display:grid;place-items:center;background:repeating-linear-gradient(0deg,rgba(0,0,0,.03) 0 2px,transparent 2px 28px),linear-gradient(135deg,#d9c9a3,#bfa878);color:#2a1d0e;padding:24px;font-family:var(--f-mono);text-align:center}
+.paperdoc .q{font-family:var(--f-disp);font-size:7rem;line-height:1;color:#6b4a28}
+@media (max-width:760px){.tl-card{grid-template-columns:1fr}.tl .lab{display:none}.tl::before{top:auto;bottom:8px}.tl{gap:4px}}
+
+/* MAP */
+.mapwrap{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;align-items:start}
+.mapbox{position:relative;overflow:hidden;padding:0}
+.mapbox svg{display:block;width:100%;height:auto}
+.mapbox .city{cursor:pointer}
+.mapbox .city:hover circle.c,.mapbox .city.on circle.c{r:9}
+.mapinfo{padding:20px;display:grid;gap:12px;min-height:260px;align-content:start}
+.legend{display:flex;flex-wrap:wrap;gap:14px;padding:12px 16px;font-size:.82rem;color:var(--muted);border-top:1px solid var(--line)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{width:26px;height:0;border-top:2px solid}
+.topics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.topic{padding:16px;text-align:left;background:var(--glass);border:1px solid var(--line);border-radius:12px}
+.topic b{font-family:var(--f-label);letter-spacing:.06em;color:var(--gold2);font-weight:500}
+.topic p{display:none;margin-top:8px;font-size:.92rem;color:var(--muted)}
+.topic.open p{display:block}
+@media (max-width:900px){.mapwrap{grid-template-columns:1fr}.topics{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.topics{grid-template-columns:1fr}}
+
+/* ARCHIVE */
+.cabinet{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:18px;border-radius:16px;background:linear-gradient(180deg,#3d2c1c,#2a1e13);border:1px solid #5b4229;box-shadow:inset 0 2px 0 rgba(255,255,255,.06),0 30px 60px -30px #000}
+.drawer{position:relative;padding:20px 16px 16px;border-radius:8px;background:linear-gradient(180deg,#5a4129,#47331f);border:1px solid #6e5233;text-align:left;color:#f1e3c4;display:grid;gap:8px;transition:transform .3s,box-shadow .3s}
+.drawer:hover{transform:translateY(-3px)}
+.drawer.on{transform:translateY(6px) scale(.98);box-shadow:inset 0 0 0 2px var(--gold)}
+.drawer .num{font-family:var(--f-mono);font-size:.8rem;color:#e7c98a}
+.drawer .nm{font-family:var(--f-label);letter-spacing:.06em;text-transform:uppercase;font-size:.84rem;line-height:1.3}
+.drawer .handle{width:46px;height:8px;border-radius:5px;background:linear-gradient(180deg,#e8cf88,#8f7232);margin:4px auto 0}
+.drawer .cnt{font-size:.75rem;color:#cdb68b}
+.docs{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:22px}
+.doc{padding:20px;display:grid;gap:10px;align-content:start;background:linear-gradient(180deg,#efe3c6,#e1d1ac);color:var(--ink);border-radius:4px 4px 4px 18px;box-shadow:0 18px 40px -22px #000;position:relative;animation:slideIn .45s both}
+.doc::after{content:"";position:absolute;top:0;right:22px;width:46px;height:14px;background:rgba(212,175,55,.5);transform:translateY(-6px) rotate(3deg)}
+@keyframes slideIn{from{transform:translateY(16px);opacity:.3}to{transform:none;opacity:1}}
+.doc h4{margin:0;font-family:var(--f-disp);font-size:1.12rem;line-height:1.25}
+.doc .meta{font-family:var(--f-mono);font-size:.78rem;color:#5b4a33}
+.doc p{font-size:.92rem}
+.doc .avail{font-family:var(--f-label);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:4px;justify-self:start}
+.doc .avail.y{background:#1e5a3d;color:#e7fff0}
+.doc .avail.n{background:#d8c69d;color:#5b4a33;border:1px dashed #8e7650}
+.doc .btn{color:var(--ink);border-color:#8e7650;justify-self:start}
+.doc .btn:hover{background:rgba(112,84,59,.15)}
+.srclist{display:grid;gap:10px;margin:0;padding:0;list-style:none;counter-reset:s}
+.srclist li{padding:14px 16px;background:var(--glass);border:1px solid var(--line);border-radius:10px;display:grid;grid-template-columns:40px 1fr;gap:10px}
+.srclist .n{font-family:var(--f-mono);color:var(--gold)}
+@media (max-width:820px){.cabinet{grid-template-columns:repeat(2,1fr)}}
+
+/* GAMES common */
+.game{padding:clamp(18px,3vw,30px);display:grid;gap:18px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tab{padding:10px 16px;border-radius:10px;border:1px solid var(--line);background:transparent;font-family:var(--f-label);letter-spacing:.08em;text-transform:uppercase;font-size:.8rem;color:var(--muted)}
+.tab.on{background:rgba(212,175,55,.14);color:var(--gold2);border-color:var(--gold)}
+.tab .pts{font-family:var(--f-mono);color:var(--cyan);margin-left:6px}
+.scorebar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;font-family:var(--f-label);letter-spacing:.08em;text-transform:uppercase;font-size:.82rem}
+.score{font-family:var(--f-mono);font-size:1.4rem;color:var(--gold2)}
+.input-row{display:flex;flex-wrap:wrap;gap:10px}
+.input-row input{flex:1;min-width:0;min-width:180px;background:#060e19;border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--fg);font-family:var(--f-mono);font-size:1.1rem;letter-spacing:.12em;text-transform:uppercase}
+.fb{padding:12px 16px;border-radius:10px;font-size:.95rem;border:1px solid}
+.fb.ok{border-color:var(--ok);background:rgba(95,211,154,.08)}
+.fb.no{border-color:var(--bad);background:rgba(227,109,94,.08)}
+.fb.info{border-color:var(--cyan);background:rgba(53,199,216,.07)}
+.cipher-text{font-family:var(--f-mono);font-size:clamp(1.4rem,4vw,2.2rem);letter-spacing:.3em;color:var(--cyan);text-shadow:0 0 18px rgba(53,199,216,.5);word-break:break-all}
+.alpha{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:4px;font-family:var(--f-mono);font-size:.82rem}
+.alpha div{display:grid;text-align:center;border:1px solid rgba(212,175,55,.2);border-radius:6px;padding:4px 0;background:#060e19}
+.alpha div b{color:var(--gold2);font-weight:400}
+.alpha div span{color:var(--cyan);font-size:.75rem}
+.radio-set{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;padding:18px;border-radius:14px;background:linear-gradient(180deg,#2a2218,#1b150e);border:1px solid #5b4229}
+.radio-face{width:150px;height:110px;border-radius:12px;background:#3a2e20;border:2px solid #6b5333;display:grid;place-items:center;position:relative}
+.radio-face .dial{width:58px;height:58px;border-radius:50%;background:radial-gradient(circle,#c9a663,#6b5333);border:3px solid #2a2218}
+.radio-face .led{position:absolute;top:10px;right:12px;width:10px;height:10px;border-radius:50%;background:#400}
+.radio-face.on .led{background:#ff5340;box-shadow:0 0 12px #ff5340;animation:blink .5s infinite}
+.osc{height:64px;width:100%;background:#060e19;border-radius:8px;border:1px solid rgba(53,199,216,.3)}
+.msgs3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tele{padding:16px;background:var(--paper);color:var(--ink);font-family:var(--f-mono);font-size:.92rem;border-radius:4px;box-shadow:0 10px 26px -14px #000}
+.tele b{display:block;font-family:var(--f-label);letter-spacing:.1em;font-size:.72rem;color:#7a1f15;margin-bottom:6px}
+.opts{display:grid;gap:10px}
+.opt{text-align:left;padding:12px 16px;border-radius:10px;border:1px solid var(--line);background:rgba(16,31,53,.5)}
+.opt:hover{border-color:var(--gold)}
+.opt.right{border-color:var(--ok);background:rgba(95,211,154,.1)}
+.opt.wrong{border-color:var(--bad);background:rgba(227,109,94,.1)}
+@media (max-width:720px){.msgs3{grid-template-columns:1fr}.radio-set{grid-template-columns:1fr}.radio-face{margin:auto}}
+
+/* fact game */
+.fact-card{padding:clamp(18px,3vw,28px);border-radius:14px;background:var(--paper);color:var(--ink);font-family:var(--f-disp);font-size:clamp(1.15rem,2.6vw,1.5rem);line-height:1.35;box-shadow:0 20px 40px -24px #000}
+.cat3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cat3 button{padding:14px 10px;border-radius:12px;border:1px solid currentColor;background:rgba(16,31,53,.6);font-family:var(--f-label);letter-spacing:.06em;text-transform:uppercase;font-size:.8rem}
+@media (max-width:560px){.cat3{grid-template-columns:1fr}}
+.progress{height:6px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width .4s}
+/* sortable */
+.sortlist{list-style:none;margin:0;padding:0;display:grid;gap:8px;touch-action:none}
+.sortlist li{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;padding:12px 12px;border-radius:10px;background:rgba(16,31,53,.85);border:1px solid var(--line);user-select:none;-webkit-user-select:none;cursor:grab;touch-action:none}
+.sortlist li.drag{opacity:.9;box-shadow:0 18px 40px -10px #000;border-color:var(--gold);cursor:grabbing;position:relative;z-index:5}
+.sortlist li.ok{border-color:var(--ok)} .sortlist li.no{border-color:var(--bad)}
+.sortlist .grip{font-family:var(--f-mono);color:var(--gold);text-align:center}
+.sortlist .mv{display:flex;gap:4px}
+.sortlist .mv button{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:transparent}
+.award{text-align:center;padding:36px 20px;display:grid;gap:12px;justify-items:center;border-radius:18px;background:radial-gradient(circle at 50% 0%,rgba(212,175,55,.25),transparent 70%),var(--bg2);border:1px solid var(--gold)}
+.medal{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#fff3c4,var(--gold) 45%,#8a6d1c);color:#3a2a05;font-family:var(--f-disp);font-size:2.6rem;box-shadow:0 0 50px rgba(212,175,55,.5);animation:pop .7s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{from{transform:scale(.3)}to{transform:scale(1)}}
+.docpaper{padding:18px;background:var(--paper);color:var(--ink);font-family:var(--f-mono);font-size:.95rem;border-radius:4px;position:relative}
+.docpaper b{display:block;font-family:var(--f-label);font-size:.74rem;letter-spacing:.12em;color:#7a1f15;margin-bottom:8px;text-transform:uppercase}
+
+/* AI */
+.algo{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;counter-reset:a}
+.algo button{padding:14px 6px;border-radius:12px;border:1px solid var(--line);background:var(--glass);font-family:var(--f-label);letter-spacing:.06em;font-size:.76rem;display:grid;gap:4px;justify-items:center;position:relative;transition:transform .25s,border-color .25s}
+.algo button::before{counter-increment:a;content:counter(a);font-family:var(--f-disp);font-size:1.5rem;color:var(--gold)}
+.algo button:not(:last-child)::after{content:"→";position:absolute;right:-9px;top:50%;transform:translateY(-50%);color:var(--gold);font-size:.9rem;z-index:2}
+.algo button.on{border-color:var(--gold);background:rgba(212,175,55,.12);transform:translateY(-4px)}
+.algo-detail{display:grid;grid-template-columns:1fr 1fr;gap:0;overflow:hidden;margin-top:14px}
+.algo-detail .im{position:relative;min-height:240px;background:#0b1626}
+.algo-detail .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.algo-detail .im .ai-note{position:absolute;left:0;right:0;bottom:0}
+.algo-detail dl{margin:0;padding:22px;display:grid;gap:10px;min-width:0}
+.algo-detail dt{font-family:var(--f-label);letter-spacing:.12em;text-transform:uppercase;font-size:.72rem;color:var(--gold)}
+.algo-detail dd{margin:0 0 4px;font-size:.95rem}
+@media (max-width:900px){.algo{grid-template-columns:repeat(4,1fr)}.algo button::after{display:none}.algo-detail{grid-template-columns:1fr}}
+@media (max-width:460px){.algo{grid-template-columns:repeat(2,1fr)}}
+.compare{position:relative;overflow:hidden;border-radius:16px;border:1px solid var(--line);aspect-ratio:16/9;max-width:100%;user-select:none;touch-action:pan-y;background:#0b1626}
+.compare .layer{position:absolute;inset:0}
+.compare .data{background:repeating-linear-gradient(0deg,rgba(0,0,0,.04) 0 1px,transparent 1px 26px),linear-gradient(135deg,#e8dbbb,#cdb98b);color:var(--ink);padding:clamp(14px,3vw,34px);display:grid;align-content:start;gap:10px;font-family:var(--f-mono);font-size:clamp(.72rem,1.5vw,.95rem)}
+.compare .data h4{margin:0;font-family:var(--f-label);letter-spacing:.14em;text-transform:uppercase;color:#7a1f15;font-size:.8rem}
+.compare .data ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.compare .vis img{width:100%;height:100%;object-fit:cover}
+.compare .vis .ai-note{position:absolute;left:0;right:0;bottom:0}
+.compare .handle{position:absolute;top:0;bottom:0;width:3px;background:var(--gold);transform:translateX(-1.5px);cursor:ew-resize}
+.compare .handle::after{content:"⟷";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:var(--gold);color:#1a1306;display:grid;place-items:center;font-size:1.1rem}
+.compare input[type=range]{position:absolute;inset:auto 0 0;width:100%;opacity:0;height:100%;cursor:ew-resize}
+.prompt-box{padding:18px;border-radius:12px;background:#060e19;border:1px solid rgba(53,199,216,.3);font-family:var(--f-mono);font-size:.9rem;color:#cfe9ee}
+.prompt-box .neg{color:#f2a99f}
+.ai-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.ai-grid figure{margin:0;position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--line);aspect-ratio:16/10;cursor:zoom-in;max-width:100%}
+.ai-grid img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.ai-grid figure:hover img{transform:scale(1.06)}
+.ai-grid .ai-note{position:absolute;left:0;right:0;bottom:0;font-size:.68rem}
+@media (max-width:820px){.ai-grid{grid-template-columns:1fr 1fr}}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+
+/* DIARY BOOK */
+.book{position:relative;max-width:880px;margin:0 auto;perspective:2000px}
+.book-inner{position:relative;display:grid;grid-template-columns:1fr 1fr;border-radius:8px;box-shadow:0 40px 80px -30px #000;background:#5b3f25;padding:14px}
+.page{background:repeating-linear-gradient(0deg,transparent 0 29px,rgba(112,84,59,.18) 29px 30px),linear-gradient(90deg,#e9dbb9,#f3e8cc);color:var(--ink);padding:clamp(18px,3vw,34px);min-height:520px;position:relative;overflow:hidden}
+.page.l{border-radius:6px 0 0 6px;box-shadow:inset -18px 0 30px -18px rgba(0,0,0,.35)}
+.page.r{border-radius:0 6px 6px 0;box-shadow:inset 18px 0 30px -18px rgba(0,0,0,.35)}
+.page h3{font-size:clamp(1.4rem,2.6vw,1.9rem);color:#3d2810;margin-bottom:12px}
+.page .pn{position:absolute;bottom:12px;font-family:var(--f-mono);font-size:.78rem;color:#7b6040}
+.page.l .pn{left:20px}.page.r .pn{right:20px}
+.page .ch{font-family:var(--f-label);letter-spacing:.2em;text-transform:uppercase;font-size:.72rem;color:#7a1f15}
+.page p{font-size:.98rem;line-height:1.65}
+.entry{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:8px 0;border-bottom:1px dashed rgba(112,84,59,.35);font-size:.86rem}
+.entry .dt{font-family:var(--f-mono);color:#7a1f15;font-size:.8rem}
+.entry .r{grid-column:2;color:#5b4a33;font-style:italic}
+.flip{position:absolute;top:14px;bottom:14px;right:14px;width:calc(50% - 14px);transform-origin:left center;background:linear-gradient(90deg,#efe2c2,#e4d4ae);border-radius:0 6px 6px 0;animation:flipA .7s ease-in forwards;pointer-events:none;box-shadow:0 0 30px rgba(0,0,0,.3)}
+.flip.back{left:14px;right:auto;transform-origin:right center;border-radius:6px 0 0 6px;animation:flipB .7s ease-in forwards}
+@keyframes flipA{to{transform:rotateY(-180deg)}}
+@keyframes flipB{to{transform:rotateY(180deg)}}
+.book-ctrl{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:18px;flex-wrap:wrap}
+.book-ctrl .pg{font-family:var(--f-mono);color:var(--muted)}
+@media (max-width:760px){.book-inner{grid-template-columns:1fr;padding:10px}.page.l{border-radius:6px 6px 0 0;box-shadow:inset 0 -18px 30px -18px rgba(0,0,0,.3);min-height:0;padding-bottom:40px}.page.r{border-radius:0 0 6px 6px;box-shadow:none;min-height:0;padding-bottom:40px}.flip{width:auto;left:10px;right:10px;top:10px;bottom:10px}}
+.how{display:grid;gap:0;position:relative;margin-top:26px}
+.how .st{display:grid;grid-template-columns:150px 30px 1fr;gap:14px;align-items:start;opacity:0;transform:translateX(-20px);animation:howIn .5s forwards}
+.how .st .ln{position:relative;height:100%;min-height:70px}
+.how .st .ln::before{content:"";position:absolute;left:50%;top:6px;bottom:-6px;width:2px;background:var(--gold);transform:translateX(-50%) scaleY(0);transform-origin:top;animation:grow .5s forwards;animation-delay:inherit}
+.how .st:last-child .ln::before{display:none}
+.how .st .ln::after{content:"";position:absolute;left:50%;top:4px;width:14px;height:14px;border-radius:50%;background:var(--gold);transform:translateX(-50%);box-shadow:0 0 14px var(--gold)}
+.how .p{font-family:var(--f-mono);font-size:.82rem;color:var(--cyan);padding-top:2px}
+.how b{font-family:var(--f-label);letter-spacing:.06em;color:var(--gold2);font-weight:500}
+.how .d{color:var(--muted);font-size:.92rem;padding-bottom:18px}
+@keyframes howIn{to{opacity:1;transform:none}}
+@keyframes grow{to{transform:translateX(-50%) scaleY(1)}}
+@media (max-width:600px){.how .st{grid-template-columns:24px 1fr}.how .st .p{grid-column:2;order:-1}.how .st .ln{grid-row:1/3;grid-column:1}}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin-top:18px}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:.88rem}
+th,td{padding:10px 12px;border-bottom:1px solid rgba(212,175,55,.12);text-align:left;vertical-align:top}
+th{font-family:var(--f-label);letter-spacing:.08em;text-transform:uppercase;font-size:.72rem;color:var(--gold);font-weight:500;background:rgba(16,31,53,.7);position:sticky;top:0}
+td.dt{font-family:var(--f-mono);white-space:nowrap;color:var(--cyan)}
+
+/* VIDEOS */
+.vids{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.vids .vc:first-child{grid-column:span 2;grid-row:span 2}
+.vc{text-align:left;padding:0;overflow:hidden;display:grid;grid-template-rows:auto 1fr;background:var(--glass);border:1px solid var(--line);border-radius:14px;transition:transform .3s,border-color .3s}
+.vc:hover{transform:translateY(-4px);border-color:var(--gold)}
+.vc .th{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden;max-width:100%}
+.vc .th img{width:100%;height:100%;object-fit:cover;opacity:.85}
+.vc .play{position:absolute;inset:0;display:grid;place-items:center}
+.vc .play i{width:58px;height:58px;border-radius:50%;background:rgba(212,175,55,.9);display:grid;place-items:center;box-shadow:0 0 30px rgba(212,175,55,.5)}
+.vc .play i::after{content:"";border-left:16px solid #1a1306;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px}
+.vc .dur{position:absolute;right:10px;bottom:10px;font-family:var(--f-mono);font-size:.78rem;background:rgba(0,0,0,.7);padding:2px 8px;border-radius:6px}
+.vc .cat{position:absolute;left:10px;top:10px}
+.vc .tx{padding:14px 16px;display:grid;gap:6px;align-content:start}
+.vc .tx b{font-family:var(--f-disp);font-size:1.05rem;line-height:1.25;font-weight:700}
+.vc .tx span{font-size:.86rem;color:var(--muted)}
+@media (max-width:980px){.vids{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:540px){.vids{grid-template-columns:1fr}.vids .vc:first-child{grid-column:auto;grid-row:auto}}
+
+/* GALLERY */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.masonry{columns:4 240px;column-gap:14px}
+.masonry figure{break-inside:avoid;margin:0 0 14px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--bg2);cursor:zoom-in;transition:transform .3s,border-color .3s;animation:slideIn .4s both}
+.masonry figure:hover{transform:translateY(-3px);border-color:var(--gold)}
+.masonry img{width:100%;display:block}
+.masonry figcaption{padding:10px 12px;font-size:.82rem;color:var(--muted);line-height:1.45}
+.empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:12px}
+
+/* OVERLAY */
+#ov{position:fixed;inset:0;z-index:100;background:rgba(3,7,13,.94);display:grid;grid-template-rows:auto 1fr auto;padding:calc(10px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+#ov .ov-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px;min-height:48px}
+#ov #ovTools{flex-wrap:wrap}
+#ov .ov-title{font-family:var(--f-label);letter-spacing:.1em;text-transform:uppercase;font-size:.85rem;color:var(--gold2);margin-right:auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#ov .ov-body{min-height:0;overflow:auto;display:grid;place-items:center;position:relative}
+#ov .ov-body.zoomed{place-items:start}
+#ov .ov-body img.lb{max-width:100%;max-height:100%;object-fit:contain;border-radius:6px;cursor:zoom-in}
+#ov .ov-body.zoomed img.lb{max-width:none;max-height:none;width:200%;cursor:zoom-out}
+#ov .ov-body video{max-width:100%;max-height:100%;border-radius:8px;background:#000}
+#ov .ov-cap{max-width:900px;margin:10px auto 0;text-align:center;color:var(--muted);font-size:.9rem}
+#ov .nav-arrow{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(16,31,53,.85);border:1px solid var(--line);font-size:1.4rem;z-index:2}
+#ov .nav-arrow.p{left:4px}#ov .nav-arrow.n{right:4px}
+#ov .card{max-width:760px;width:100%;padding:clamp(20px,3vw,34px);display:grid;gap:14px;align-self:start;margin:auto}
+#ov .card h3{font-size:clamp(1.4rem,3vw,2rem)}
+.docviewer{width:100%;max-width:900px;display:grid;gap:12px;align-self:start;margin:0 auto}
+.docviewer img{width:100%;background:#fff;border-radius:4px}
+.vctrl{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+
+/* MEMORY */
+.memory{background:radial-gradient(700px 400px at 50% 20%,rgba(212,175,55,.12),transparent 70%),#03070d;text-align:center;overflow:hidden}
+.memory .wrap{display:grid;justify-items:center;gap:26px}
+.mem-face{width:min(320px,70vw);aspect-ratio:1;border-radius:50%;overflow:hidden;position:relative;box-shadow:0 0 0 1px var(--line),0 0 120px -20px rgba(53,199,216,.5);animation:emerge 3s ease-out both}
+.mem-face img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;filter:grayscale(.4) brightness(.9)}
+@keyframes emerge{from{opacity:.4;filter:blur(8px)}to{opacity:1;filter:none}}
+.mem-line{font-family:var(--f-disp);font-size:clamp(1.5rem,4vw,2.8rem);max-width:22ch;line-height:1.2}
+.mem-line.g{color:var(--gold);font-style:italic;font-weight:500}
+.mem-foot{font-family:var(--f-label);letter-spacing:.2em;text-transform:uppercase;color:var(--gold2);font-size:.9rem}
+.fbform{width:100%;max-width:760px;text-align:left;padding:clamp(18px,3vw,30px);display:grid;gap:16px}
+.fbform label{display:grid;gap:6px;font-size:.95rem}
+.fbform textarea{background:#060e19;border:1px solid var(--line);border-radius:10px;padding:12px;color:var(--fg);font:inherit;min-height:84px;resize:vertical}
+.fbform .radios{display:flex;flex-wrap:wrap;gap:8px}
+.fbform .radios label{display:inline-flex;grid-auto-flow:column;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;cursor:pointer}
+.fbform .radios input{accent-color:var(--gold)}
+.store-note{font-size:.84rem;color:var(--muted);border-left:2px solid var(--cyan);padding-left:10px}
+.fb-list{display:grid;gap:10px;width:100%;max-width:760px;text-align:left}
+.fb-list .it{padding:14px;border-radius:10px;background:var(--glass);border:1px solid var(--line);font-size:.9rem}
+
+/* AUTHORS */
+.authors{border-top:1px solid var(--line);background:var(--bg3)}
+.auth-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:22px}
+.auth-grid .glass{padding:22px;display:grid;gap:8px;align-content:start}
+.auth-grid .k{font-family:var(--f-label);letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;color:var(--gold)}
+.auth-grid .v{font-family:var(--f-disp);font-size:1.2rem}
+@media (max-width:860px){.auth-grid{grid-template-columns:1fr}}
+.foot{padding-block:24px;color:var(--dim);font-size:.82rem;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+.to-top{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;width:46px;height:46px;border-radius:50%;background:var(--gold);color:#1a1306;border:0;font-size:1.2rem;box-shadow:0 10px 30px -10px #000}
+.reveal{animation:fadeUp .8s both}
+@keyframes fadeUp{from{transform:translateY(18px)}to{transform:none}}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav" aria-label="Негізгі навигация">
+  <div class="wrap">
+    <a class="brand" href="#home"><i></i>Үнсіз ерлік</a>
+    <ul id="navList">
+      <li><a class="nl" href="#home">Басты бет</a></li>
+      <li><a class="nl" href="#museum">Виртуалды музей</a></li>
+      <li><a class="nl" href="#timeline">Өмір жолы</a></li>
+      <li><a class="nl" href="#archive">Құпия архив</a></li>
+      <li><a class="nl" href="#cipher">Шифрлау зертханасы</a></li>
+      <li><a class="nl" href="#detective">Тарихи детектив</a></li>
+      <li><a class="nl" href="#ai">ЖИ реконструкциясы</a></li>
+      <li><a class="nl" href="#diary">Зерттеу күнделігі</a></li>
+      <li><a class="nl" href="#videos">Видеогалерея</a></li>
+      <li><a class="nl" href="#achievements">Жетістіктер</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-label="Мәзірді ашу" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<header class="hero" id="home">
+  <canvas id="cipherCanvas" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="case-id">ІС № 1919–1942 · ГРИФ: «АСА ҚҰПИЯ» · АШЫЛДЫ: 2026</div>
+      <p class="whisper" id="whisper" aria-label="Кейбір ерліктер тарихта үнсіз қалады...">КЕЙБІР ЕРЛІКТЕР ТАРИХТА ҮНСІЗ ҚАЛАДЫ...</p>
+      <h1>Ақжібек Мұқашева<span class="l2">Үнсіз ерлік</span></h1>
+      <p class="slogan">«Тарихта ізі қалған, бірақ есімі ұзақ уақыт үнсіз қалған тұлға»</p>
+      <p class="proj">Ғылыми жоба · «Тарихты тірілткен ЖИ: Ақжібек Мұқашеваның үнсіз ерлігі»</p>
+      <div class="cta">
+        <button class="btn primary" id="openCase">Құпия істі ашу</button>
+        <button class="btn" data-enter-museum>Виртуалды музейге кіру</button>
+        <button class="btn" data-video="film">Тарихи бейнені көру</button>
+      </div>
+    </div>
+    <figure class="portrait" style="margin:0">
+      <img src="ai-face.jpg" alt="Ақжібек Мұқашеваның ЖИ арқылы жасалған тарихи-көркем реконструкциясы">
+      <span class="stamp">Реконструкция</span>
+      <figcaption class="ai-note">Жасанды интеллект көмегімен жасалған тарихи-көркем реконструкция. Түпнұсқа тарихи фотосурет емес.</figcaption>
+    </figure>
+  </div>
+  <div class="desk" aria-hidden="true">
+    <svg viewBox="0 0 1600 260" preserveAspectRatio="xMidYMax slice">
+      <defs>
+        <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a3420"/><stop offset="1" stop-color="#1f150c"/></linearGradient>
+        <radialGradient id="lampLight" cx=".5" cy="0" r="1"><stop offset="0" stop-color="#ffd98a" stop-opacity=".55"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></radialGradient>
+        <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3c4552"/><stop offset="1" stop-color="#1b2029"/></linearGradient>
+      </defs>
+      <ellipse class="lamp-glow" cx="1250" cy="150" rx="420" ry="120" fill="url(#lampLight)"/>
+      <rect x="0" y="170" width="1600" height="90" fill="url(#wood)"/>
+      <rect x="0" y="168" width="1600" height="4" fill="#6b4c2e"/>
+      <!-- map -->
+      <g transform="translate(560 150) skewX(-18)"><rect width="300" height="34" fill="#c9b78c" opacity=".9"/><path d="M20 10 L80 22 L140 8 L210 26 L280 12" stroke="#7a1f15" stroke-width="2" fill="none" stroke-dasharray="6 4"/><circle cx="80" cy="22" r="3" fill="#7a1f15"/><circle cx="210" cy="26" r="3" fill="#7a1f15"/></g>
+      <!-- radio -->
+      <g transform="translate(150 60)">
+        <rect width="240" height="112" rx="10" fill="#3a2e20" stroke="#6b5333" stroke-width="3"/>
+        <rect x="16" y="16" width="120" height="58" rx="6" fill="#0d151f" stroke="#6b5333"/>
+        <g class="wave"><path d="M22 46 Q34 28 46 46 T70 46 T94 46 T118 46 T130 46" stroke="#35C7D8" stroke-width="2" fill="none"/></g>
+        <circle cx="180" cy="44" r="26" fill="#6b5333" stroke="#c9a663" stroke-width="3"/><line x1="180" y1="44" x2="196" y2="30" stroke="#f4d58d" stroke-width="3"/>
+        <circle class="radio-led" cx="222" cy="16" r="6" fill="#ff5340"/>
+        <rect x="16" y="84" width="200" height="12" rx="3" fill="#2a2218"/><rect x="40" y="86" width="5" height="8" fill="#d4af37"/>
+        <line x1="210" y1="0" x2="250" y2="-50" stroke="#8a8a8a" stroke-width="3"/>
+      </g>
+      <!-- headphones -->
+      <path d="M420 168 Q450 110 480 168" stroke="#222" stroke-width="7" fill="none"/><rect x="410" y="152" width="20" height="18" rx="5" fill="#2b2b2b"/><rect x="470" y="152" width="20" height="18" rx="5" fill="#2b2b2b"/>
+      <!-- cipher device -->
+      <g transform="translate(920 112)"><rect width="150" height="60" rx="6" fill="url(#metal)" stroke="#5a6472"/><g fill="#d6d0bd">
+        <circle cx="20" cy="18" r="6"/><circle cx="40" cy="18" r="6"/><circle cx="60" cy="18" r="6"/><circle cx="80" cy="18" r="6"/><circle cx="100" cy="18" r="6"/><circle cx="120" cy="18" r="6"/>
+        <circle cx="28" cy="40" r="6"/><circle cx="48" cy="40" r="6"/><circle cx="68" cy="40" r="6"/><circle cx="88" cy="40" r="6"/><circle cx="108" cy="40" r="6"/></g>
+        <rect x="20" y="-18" width="110" height="18" rx="3" fill="#2a2f38"/><g fill="#f4d58d"><rect x="34" y="-14" width="10" height="10"/><rect x="58" y="-14" width="10" height="10"/><rect x="82" y="-14" width="10" height="10"/><rect x="106" y="-14" width="10" height="10"/></g></g>
+      <!-- typewriter -->
+      <g transform="translate(1110 90)"><rect x="10" y="30" width="200" height="52" rx="10" fill="#1d1d1f" stroke="#444"/><rect x="0" y="16" width="220" height="18" rx="9" fill="#2a2a2c"/><rect x="40" y="-24" width="140" height="44" fill="#efe6cf"/><g stroke="#888" stroke-width="1"><line x1="52" y1="-12" x2="160" y2="-12"/><line x1="52" y1="-4" x2="140" y2="-4"/><line x1="52" y1="4" x2="150" y2="4"/></g><g fill="#c9c2ad"><circle cx="40" cy="58" r="6"/><circle cx="60" cy="58" r="6"/><circle cx="80" cy="58" r="6"/><circle cx="100" cy="58" r="6"/><circle cx="120" cy="58" r="6"/><circle cx="140" cy="58" r="6"/><circle cx="160" cy="58" r="6"/><circle cx="180" cy="58" r="6"/></g></g>
+      <!-- papers & notebook & pen -->
+      <g transform="translate(1380 150) rotate(-8)"><rect width="120" height="24" fill="#e9dcbc"/><rect x="8" y="-4" width="120" height="24" fill="#f3e9d0"/><text x="16" y="12" font-family="monospace" font-size="10" fill="#7a1f15">СОВ. СЕКРЕТНО</text></g>
+      <g transform="translate(40 148)"><rect width="90" height="24" fill="#4a2a1a"/><rect x="4" y="2" width="82" height="20" fill="#e9dcbc"/><line x1="10" y1="22" x2="100" y2="-6" stroke="#d4af37" stroke-width="3"/></g>
+      <!-- lamp -->
+      <g transform="translate(1250 0)"><path d="M-10 168 L30 168 L20 160 L0 160 Z" fill="#2a2a2a"/><line x1="10" y1="160" x2="40" y2="70" stroke="#3a3a3a" stroke-width="5"/><line x1="40" y1="70" x2="0" y2="30" stroke="#3a3a3a" stroke-width="5"/><path d="M-40 20 L30 20 L10 50 L-20 50 Z" fill="#1f3b2e" stroke="#0e1c15"/><ellipse cx="-5" cy="50" rx="18" ry="5" fill="#ffe9b0" class="lamp-glow"/></g>
+    </svg>
+  </div>
+</header>
+
+<section class="sec" id="dossier">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Құпия іс · негізгі мәліметтер</span>
+      <h2>Математиктен шифрлаушыға дейін</h2>
+      <p>Қысқа карточкалар – дереккөздерде жарияланған негізгі мәліметтер. Карточканы басып, толық түсіндірмені, дереккөзді және деректің мәртебесін ашыңыз.</p>
+    </div>
+    <div class="dossier" id="dossierGrid"></div>
+  </div>
+</section>
+
+<section class="sec band" id="museum">
+  <div class="wrap museum-prev">
+    <div class="sec-head" style="margin:0">
+      <span class="eyebrow">Виртуалды 3D музей</span>
+      <h2>Бес бөлме. Бір тағдыр.</h2>
+      <p>Музей дәлізінде бес есік бар. Есікті басып, бөлмеге кіріңіз: камераны айналдырыңыз, жақындатыңыз, экспонаттарды басып, бөлме тапсырмасын орындаңыз. «Экскурсия» батырмасы бөлмелерді гидпен автоматты аралатады.</p>
+      <div class="cta" style="margin-top:8px"><button class="btn primary" data-enter-museum>Музейге кіру</button><button class="btn" data-enter-museum="tour">Автоматты экскурсия</button></div>
+      <p class="src">Басқару: тышқанмен сүйреу – айналдыру · дөңгелек/шымшу – жақындату · басу – экспонатты ашу</p>
+    </div>
+    <div class="doors" id="doorPreview"></div>
+  </div>
+</section>
+
+<section class="sec" id="timeline">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Интерактивті хронология</span>
+      <h2>Ақжібектің өмір жолы</h2>
+      <p>Жылды басыңыз: тарихи оқиға, түсіндірме, иллюстрация, дереккөз және деректің мәртебесі ашылады. Соңғы кезең – сұрақ белгісі.</p>
+    </div>
+    <div class="tl" id="tl" role="tablist" aria-label="Хронология"></div>
+    <div class="tl-card glass" id="tlCard"></div>
+
+    <div class="sec-head" style="margin-top:clamp(56px,8vw,96px)">
+      <span class="eyebrow">Тарихи карта</span>
+      <h2>Ақпараттық майдан картасы</h2>
+      <p>Нүктелерді басыңыз. Сызық түрі деректің мәртебесін көрсетеді: барлық байланыс бірдей дәлелденген маршрут емес.</p>
+    </div>
+    <div id="mapHost"></div>
+  </div>
+</section>
+
+<section class="sec band" id="archive">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Құпия архив · цифрлық кітапхана</span>
+      <h2>Архив шкафы</h2>
+      <p>Тартпаны ашыңыз. Жүктелген құжаттар сайт ішінде ашылады; түпнұсқа файлы жүктелмеген жарияланымдар тек библиографиялық карточка ретінде көрсетіледі.</p>
+    </div>
+    <div class="cabinet" id="cabinet"></div>
+    <div id="docs"></div>
+  </div>
+</section>
+
+<section class="sec" id="cipher">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Ойын зертханасы</span>
+      <h2>Шифрлаушы болып көр!</h2>
+      <p>Үш деңгей: «Құпия сөз» (10 ұпай), «Радиограмма» (20 ұпай), «Құпия операция» (30 ұпай). Тапсырмалар шартты, оқу мақсатында құрастырылған; нақты тарихи шифрларды қайталамайды.</p>
+    </div>
+    <div class="game glass" id="cipherGame"></div>
+  </div>
+</section>
+
+<section class="sec band" id="detective">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Тарихи детектив</span>
+      <h2>Дерекпен жұмыс істеп көр</h2>
+      <p>Үш ойын: тұжырымды санатқа бөлу, жоғалған хронологияны қалпына келтіру және архивтік тергеу.</p>
+    </div>
+    <div class="game glass" id="detGame"></div>
+  </div>
+</section>
+
+<section class="sec" id="ai">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Тарихты тірілткен ЖИ</span>
+      <h2>Деректен бейнеге: жобаның алгоритмі</h2>
+      <p>Ақжібектің түпнұсқа фотосуреті сақталмаған. Сондықтан бейне тарихи деректерге сүйеніп, ЖИ көмегімен жасалған тарихи-көркем реконструкция ретінде ұсынылады. Кезеңді басыңыз.</p>
+    </div>
+    <div id="algoHost"></div>
+    <div class="two" style="margin-top:clamp(40px,6vw,72px)">
+      <div class="grid" style="gap:14px">
+        <span class="eyebrow">Реконструкцияны салыстыр</span>
+        <h3 style="font-size:1.7rem">Зерттеу материалынан визуалды бейнеге</h3>
+        <p class="muted">Сырғытпаны жылжытыңыз: сол жақта – промптқа енгізілген тарихи деректер, оң жақта – осы сипаттама негізінде алынған ЖИ бейнесі. Түпнұсқа фото болмағандықтан, «бұрын және кейін» салыстыруы жасалмайды.</p>
+        <div id="compareHost"></div>
+      </div>
+      <div class="grid" style="gap:14px">
+        <span class="eyebrow">Промпт</span>
+        <div class="prompt-box" id="promptBox"></div>
+        <div class="table-wrap" style="margin:0"><table id="promptTable"></table></div>
+      </div>
+    </div>
+    <div style="margin-top:clamp(40px,6vw,72px)" class="grid">
+      <span class="eyebrow">ЖИ визуалдары</span>
+      <div class="ai-grid" id="aiGrid"></div>
+      <div class="cta"><button class="btn primary" data-video="film">Тарихи бейнені көру</button><button class="btn" data-video="process">Жасалу процесін көру</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec band" id="diary">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Зерттеуші күнделігі</span>
+      <h2>09.09.2025 – 01.09.2026</h2>
+      <p>Күнделікті парақтаңыз: он бөлім, нақты күндер мен жұмыстар. Төмендегі батырма зерттеу кезеңдерін схема түрінде көрсетеді.</p>
+    </div>
+    <div class="book" id="book"></div>
+    <div class="cta" style="justify-content:center;margin-top:28px"><button class="btn primary" id="howBtn">Зерттеу қалай жүргізілді?</button><button class="btn" id="allEntries">Барлық 41 жазба</button></div>
+    <div id="howHost" class="wrap" style="max-width:820px;padding:0"></div>
+    <div id="entriesHost"></div>
+  </div>
+</section>
+
+<section class="sec" id="videos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Тарихи бейнелер</span>
+      <h2>Видеогалерея</h2>
+      <p>Видеолар дыбыссыз да, дыбыспен де ойнайды – дыбысты өзіңіз қосасыз. Толық экран режимі қолжетімді.</p>
+    </div>
+    <div class="vids" id="vids"></div>
+  </div>
+</section>
+
+<section class="sec band" id="achievements">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Жобаның жетістіктері</span>
+      <h2>Байқаулар, конференциялар, марапаттар</h2>
+      <p>Суретті басыңыз – толық экранда ашылады, сертификатты үлкейтіп оқуға болады. Сипаттамалар суреттегі көрінетін мәліметке ғана сүйенеді.</p>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="masonry" id="masonry"></div>
+  </div>
+</section>
+
+<section class="sec memory" id="memory">
+  <div class="wrap">
+    <span class="eyebrow">Тарихи жады</span>
+    <div class="mem-face"><img src="ai-face.jpg" alt="Ақжібек Мұқашеваның ЖИ реконструкциясы"></div>
+    <p class="src" style="max-width:52ch">Жасанды интеллект көмегімен жасалған тарихи-көркем реконструкция. Түпнұсқа тарихи фотосурет емес.</p>
+    <p class="mem-line">«Ерлік әрдайым майдан даласында жасалмайды...»</p>
+    <p class="mem-line g">«Кейде ол құпия ақпаратты дәл жеткізуден басталады».</p>
+    <p class="mem-foot">Тарихты ұмытпау – болашақ алдындағы жауапкершілік</p>
+    <form class="fbform glass" id="fbForm" autocomplete="off">
+      <h3 style="font-size:1.5rem">Кері байланыс</h3>
+      <label for="fq1"><span id="fq1l"></span><textarea id="fq1" maxlength="1200"></textarea></label>
+      <label for="fq2"><span id="fq2l"></span><textarea id="fq2" maxlength="1200"></textarea></label>
+      <div><p id="fq3l" style="margin-bottom:8px"></p>
+        <div class="radios" role="radiogroup" aria-labelledby="fq3l">
+          <label><input type="radio" name="fq3" id="fq3a" value="Иә">Иә</label>
+          <label><input type="radio" name="fq3" id="fq3b" value="Жоқ">Жоқ</label>
+          <label><input type="radio" name="fq3" id="fq3c" value="Білмеймін">Білмеймін</label>
+        </div>
+        <textarea id="fq3t" maxlength="1200" placeholder="Неге? (міндетті емес)" style="margin-top:10px;width:100%"></textarea>
+      </div>
+      <p class="store-note" id="storeNote">Жауаптарды сақтау орны тексерілуде…</p>
+      <div class="cta"><button class="btn primary" type="submit" id="fbSubmit">Жауапты жіберу</button></div>
+      <div id="fbStatus" aria-live="polite"></div>
+    </form>
+    <div class="fb-list" id="fbList" hidden></div>
+  </div>
+</section>
+
+<footer class="authors" id="authors">
+  <div class="wrap sec" style="padding-block:clamp(48px,7vw,80px) 0">
+    <div class="sec-head"><span class="eyebrow">Ғылыми жобаның авторлары</span><h2 style="font-size:clamp(1.6rem,3.4vw,2.4rem)">«Тарихты тірілткен ЖИ: Ақжібек Мұқашеваның үнсіз ерлігі»</h2></div>
+    <div class="auth-grid">
+      <div class="glass"><span class="k">Орындаған</span><span class="v">Карбаева Ляйля Мухамедалиевна</span><span class="muted">9 «Д» сынып оқушысы</span>
+        <span class="k" style="margin-top:12px">Жетекші</span><span class="v">Нурмухамбетова Ардак Сериковна</span><span class="muted">Тарих пәні мұғалімі</span></div>
+      <div class="glass"><span class="k">Ғылыми жетекші</span><span class="v">И. А. Темирбекович</span><span class="muted">«Astana IT University» ЖШС, жалпы білім беру мектебінің ассистент-профессоры (жобаның титулдық беті бойынша)</span>
+        <span class="k" style="margin-top:12px">Рецензент</span><span class="muted">Имангалиев А. Т., PhD, «Astana IT University» ЖШС</span></div>
+      <div class="glass"><span class="k">Білім беру ұйымы</span><span class="v">Астана қаласы, №100 жалпы орта білім беретін мектеп</span><span class="muted">Нұра ауданы</span><span class="k" style="margin-top:12px">Жылы</span><span class="v">2026</span><span class="k" style="margin-top:12px">Бағыт</span><span class="muted">Қоғамдық-гуманитарлық бағыт</span></div>
+    </div>
+    <div class="foot"><span>Сайттағы барлық адам бейнесіндегі ЖИ визуалдары – тарихи-көркем реконструкция, түпнұсқа фотосурет емес.</span><a href="#home">↑ Басты бетке</a></div>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="Басты бетке қайту" hidden>↑</button>
+<div id="folderFx" hidden><div class="folder"><div class="back"><div class="paper">ІС № 1919–1942<br>МҰҚАШЕВА А. Т.<br>Шифрлаушы, Бас барлау басқармасы<br>─────────────<br>Мәртебе: зерттелуде</div></div><div class="front"><b>ҚҰПИЯ</b></div></div></div>
+<div id="ov" hidden role="dialog" aria-modal="true" aria-labelledby="ovTitle"><div class="ov-top"><span class="ov-title" id="ovTitle"></span><span id="ovTools" style="display:flex;gap:8px"></span><button class="m-btn" id="ovClose" aria-label="Жабу">✕ Жабу</button></div><div class="ov-body" id="ovBody"></div><div class="ov-cap" id="ovCap"></div></div>
+
+<div id="museumStage" hidden>
+  <canvas id="museumCanvas" aria-label="Виртуалды 3D музей"></canvas>
+  <div class="m-label" id="mLabel"></div>
+  <div class="m-fade" id="mFade"></div>
+  <div class="m-hint" id="mHint">Есікті басыңыз</div>
+  <div class="m-top">
+    <div class="m-title" id="mTitle">Музей дәлізі<small>Бес есіктің бірін таңдаңыз</small></div>
+    <button class="m-btn" id="mHall">⌂ Дәліз</button>
+    <button class="m-btn" id="mPrev">‹</button><button class="m-btn" id="mNext">›</button>
+    <button class="m-btn" id="mTask">Бөлме тапсырмасы</button>
+    <button class="m-btn" id="mTour">▶ Экскурсия</button>
+    <button class="m-btn" id="mGuideBtn">🔊 Гид</button>
+    <button class="m-btn" id="mRooms">Бөлмелер</button>
+    <button class="m-btn" id="mFs">⛶</button>
+    <button class="m-btn" id="mExit">✕ Шығу</button>
+  </div>
+  <div class="m-menu glass" id="mMenu" hidden></div>
+  <div class="m-bottom">
+    <div class="m-zoom"><button id="mZin" aria-label="Жақындату">+</button><button id="mZout" aria-label="Алыстату">−</button><button id="mRot" aria-label="Айналдыру">⟳</button></div>
+    <div class="m-guide glass" id="mGuide"><div class="gt">Музей гиді</div><div id="mGuideText">Музейге қош келдіңіз. Дәлізде бес есік бар. Есікті басып, бөлмеге кіріңіз.</div></div>
+  </div>
+  <div class="m-panel glass" id="mPanel" hidden></div>
+</div>
+
+<script src="config.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+<script type="module" src="museum.js"></script>
+
+</body>
+</html>
