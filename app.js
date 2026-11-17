@@ -170,11 +170,12 @@
   function openDoc(key) {
     const f = D.FILES[key];
     const wrap = h(`<div class="docviewer"></div>`);
-    const pages = [];
-    for (let p = 1; p <= f.pages; p++) pages.push(`${f.dir}${String(p).padStart(f.pad, "0")}.jpg`);
+    const pages = f.list ? f.list.slice() : [];
+    if (!f.list) for (let p = 1; p <= f.pages; p++) pages.push(`${f.dir}${String(p).padStart(f.pad, "0")}.jpg`);
     wrap.innerHTML = pages.map((src, k) => `<img loading="lazy" src="${src}" alt="${esc(f.name)}, ${k + 1}-бет">`).join("");
-    const pdf = h(`<a class="m-btn" href="${f.pdf}" target="_blank" rel="noopener" style="text-decoration:none">PDF жаңа бетте</a>`);
-    openOverlay({ title: `${f.name} · ${f.pages} бет`, body: wrap, tools: [pdf] });
+    const tools = [];
+    if (f.pdf) tools.push(h(`<a class="m-btn" href="${f.pdf}" target="_blank" rel="noopener" style="text-decoration:none">PDF жаңа бетте</a>`));
+    openOverlay({ title: pages.length > 1 ? `${f.name} · ${pages.length} бет` : f.name, body: wrap, tools });
     ovBody.style.placeItems = "start center";
   }
 
@@ -447,7 +448,7 @@
   const cab = $("#cabinet"), docsHost = $("#docs");
   function docCard(dc) {
     const has = dc.file || dc.img || dc.video || dc.prompt;
-    const el = h(`<article class="doc"><span class="avail ${has ? "y" : "n"}">${has ? "Файл сайтта ашылады" : "Түпнұсқа файл жүктелмеген · сипаттамасы бар"}</span>
+    const el = h(`<article class="doc"><span class="avail y">${dc.file && D.FILES[dc.file] ? (D.FILES[dc.file].list ? D.FILES[dc.file].list.length : D.FILES[dc.file].pages) + " бет · сайтта ашылады" : "Сайтта ашылады"}</span>
       <h4>${esc(dc.t)}</h4><div class="meta">${esc(dc.a)} · ${esc(dc.y)}</div><p>${esc(dc.d)}</p><div class="meta">Дереккөз: ${esc(dc.s)}</div>
       <div class="cta" style="gap:8px"></div></article>`);
     const row = $(".cta", el);
@@ -479,11 +480,11 @@
   }
   D.ARCHIVE.forEach((c, i) => {
     const n = c.sources ? D.SOURCES.length : c.docs.length;
-    const b = h(`<button class="drawer"><span class="num">${c.id}</span><span class="nm">${esc(c.name)}</span><span class="cnt">${n} құжат</span><span class="handle"></span></button>`);
+    const b = h(`<button class="drawer"><span class="num">${c.id}</span><span class="nm">${esc(c.name)}</span><span class="cnt">${n} файл</span><span class="handle"></span></button>`);
     b.onclick = () => openDrawer(i);
     cab.appendChild(b);
   });
-  openDrawer(3);
+  openDrawer(0);
 
   /* ================= CIPHER LAB ================= */
   const ALPH = "А Ә Б В Г Ғ Д Е Ё Ж З И Й К Қ Л М Н Ң О Ө П Р С Т У Ұ Ү Ф Х Һ Ц Ч Ш Щ Ъ Ы І Ь Э Ю Я".split(" ");
