@@ -112,6 +112,20 @@ p{margin:0}
 .gloss dd{margin:0;font-size:.92rem;color:#d7dde6}
 .sec-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:-12px;margin-bottom:22px}
 
+
+.tl-card{grid-template-columns:minmax(0,1fr)!important}
+.tl-card .media{min-height:clamp(220px,32vw,340px)}
+.tl-card .media img{object-position:center 30%}
+.tl-article{max-width:none}
+.map-article{max-width:none;margin-top:10px;border-top:1px solid var(--line);padding-top:6px;max-height:560px;overflow:auto;padding-right:6px}
+.map-article h4{margin-top:10px}
+.panel-article{max-width:none;border-top:1px solid var(--line);padding-top:6px;font-size:.94rem}
+.panel-article .art-table table{min-width:420px}
+.art-fig{margin:16px 0;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#fff}
+.art-fig img{display:block;width:100%}
+.art-fig figcaption{background:var(--bg2);color:var(--muted);font-size:.85rem;padding:8px 12px;font-style:italic}
+.article .prompt-box{margin:14px 0}
+
 /* NAV */
 .nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(7,17,31,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(212,175,55,.16)}
 .nav .wrap{display:flex;align-items:center;gap:18px;height:60px}
@@ -612,7 +626,7 @@ td.dt{font-family:var(--f-mono);white-space:nowrap;color:var(--cyan)}
     <div class="sec-head">
       <span class="eyebrow">Интерактивті хронология</span>
       <h2>Ақжібектің өмір жолы</h2>
-      <p>Жылды басыңыз: тарихи оқиға, түсіндірме, иллюстрация, дереккөз және деректің мәртебесі ашылады. Соңғы кезең – сұрақ белгісі.</p>
+      <p>Жылды басыңыз: сол кезеңге қатысты толық мәтін, кестелер, иллюстрация және дереккөздер ашылады. Соңғы кезең – сұрақ белгісі.</p>
     </div>
     <div class="tl" id="tl" role="tablist" aria-label="Хронология"></div>
     <div class="tl-card glass" id="tlCard"></div>
@@ -632,7 +646,7 @@ td.dt{font-family:var(--f-mono);white-space:nowrap;color:var(--cyan)}
     <div class="sec-head">
       <span class="eyebrow">Тарихи контекст</span>
       <h2>Ақжібектің дәуірі мен ортасы</h2>
-      <p>Оның тағдырын түсіну үшін маңызды тақырыптар. Әр карточка толық мақаланы ашады. «Жалпы тарихи контекст» белгісі бар мәліметтер дәуірді түсіндіреді, бірақ Ақжібектің жеке өмірбаянына дәлел ретінде қолданылмайды.</p>
+      <p>Ақжібек Мұқашеваның тағдырын түсінуге қажет тақырыптар. Әр карточка ғылыми жобадағы толық мәтінді, кестелерді және дереккөздерді ашады.</p>
     </div>
     <div class="ctx-grid" id="ctxGrid"></div>
     <div class="sec-head" style="margin-top:clamp(48px,7vw,80px)">

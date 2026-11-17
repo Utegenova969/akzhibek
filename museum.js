@@ -505,10 +505,12 @@ function showExhibit(ex) {
     setGuide(`${a.k}. ${a.goal} ${a.result}`);
     return;
   }
+  const FA = ex.art && window.AKZ_ARTICLES && window.AKZ_ARTICLES.A[ex.art];
   openPanel(`<span class="eyebrow">${ex.room ? ex.room + "-бөлме · экспонат" : "Экспонат"}</span><h3>${App.esc(ex.t)}</h3>${App.chip(ex.st)}<p>${App.esc(ex.d)}</p><p class="src">Дереккөз: ${App.esc(ex.s || "—")}</p>
+    ${FA ? `<div class="article panel-article"><h4>${App.esc(FA.title)}</h4>${FA.body}</div>` : ""}
     ${ex.ai ? `<p class="ai-note" style="border-radius:8px">${App.esc(D.AI_NOTE)}</p>` : ""}
     ${ex.key === "screen" ? `<div class="cta"><button class="btn small primary" data-video="film">▶ Тарихи бейнені көру</button><button class="btn small" data-video="process">Жасалу процесі</button></div>` : ""}
-    <div class="cta">${ex.art ? `<button class="btn small primary" data-art="${ex.art}">Толық мақаланы оқу</button>` : ""}${ex.room ? `<button class="btn small" id="mpTask">Бөлме тапсырмасын ашу</button>` : ""}</div>`, (b) => {
+    <div class="cta">${ex.room ? `<button class="btn small" id="mpTask">Бөлме тапсырмасын ашу</button>` : ""}</div>`, (b) => {
       const t = b.querySelector("#mpTask"); if (t) t.onclick = () => openTask();
     });
   setGuide(`${ex.t}. ${ex.d}`);

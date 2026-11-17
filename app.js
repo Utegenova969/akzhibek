@@ -321,8 +321,8 @@
   /* ================= CONTEXT + METHOD + GLOSSARY ================= */
   (function renderContext() {
     const card = (k, kicker) => { const a = ART.A[k]; if (!a) return ""; return `<button class="ctx-card" data-art="${k}"><span class="k">${kicker || a.eyebrow}</span><b>${esc(a.title)}</b><span class="d">${esc(a.lead)}</span>${chip(a.status)}<span class="go">Толық оқу →</span></button>`; };
-    $("#ctxGrid").innerHTML = ["redchapel", "kent", "otto", "sorge", "khasan", "radiogram", "cryptographer", "silent", "repression", "akhtandak", "women"].map((k) => card(k)).join("");
-    $("#methodGrid").innerHTML = ["project", "sources", "aiethics", "aimethod", "lesson"].map((k) => card(k)).join("");
+    $("#ctxGrid").innerHTML = ["redchapel", "kent", "khasan", "cryptographer", "infofront", "repression", "sources", "women"].map((k) => card(k)).join("");
+    $("#methodGrid").innerHTML = ["project", "akhtandak", "algo", "aimethod", "lesson", "results"].map((k) => card(k)).join("");
     const G = [
       ["Шифрлаушы", "Құпия хабарларды шифрлайтын және шифрланған хабарлардың кілтін пайдаланып шешетін маман."],
       ["Шифр, шифровка", "Кілтсіз оқуға болмайтындай етіп әріптер мен сандар тобына айналдырылған хабар."],
@@ -384,11 +384,12 @@
     const t = D.TIMELINE[i];
     const media = t.img ? `<img src="${t.img}" alt="${esc(t.title)} – ЖИ иллюстрациясы"><div class="ai-note">${esc(D.AI_NOTE)}</div>`
       : `<div class="paperdoc"><div><div class="q">${t.year === "?" ? "?" : "1945"}</div><div>${t.year === "?" ? "ІС АШЫҚ · АРХИВ ЖАБЫҚ" : "КУӘГЕР МӘЛІМЕТІ · РАСТАЛМАҒАН"}</div></div></div>`;
-    tlCard.innerHTML = `<div class="media">${media}</div><div class="body reveal"><div class="big">${esc(t.year)}</div><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p>
+    const art = ART.A[t.art] || {};
+    tlCard.innerHTML = `<div class="media">${media}</div><div class="body reveal"><div class="big">${esc(t.year)}</div><h3>${esc(art.title || t.title)}</h3>
       <div class="meta">${chip(t.status)}<span class="src">${refs(t.src)}</span></div>
-      ${t.year === "?" ? `<p class="fb info"><b>Ақжібек Мұқашеваның кейінгі тағдыры әлі де қосымша архивтік зерттеуді қажет етеді.</b></p>` : ""}
-      <div class="cta"><button class="btn small primary" data-art="${t.art}">Толық оқу</button><button class="btn small" ${i === 0 ? "disabled" : ""} data-tl="${i - 1}">‹ Алдыңғы</button><button class="btn small" ${i === D.TIMELINE.length - 1 ? "disabled" : ""} data-tl="${i + 1}">Келесі ›</button></div></div>`;
-    $$("[data-tl]", tlCard).forEach((b) => b.onclick = () => renderTl(+b.dataset.tl));
+      <div class="article tl-article"><p class="lead">${esc(art.lead || t.text)}</p>${art.body || ""}</div>
+      <div class="cta"><button class="btn small" ${i === 0 ? "disabled" : ""} data-tl="${i - 1}">‹ Алдыңғы</button><button class="btn small" ${i === D.TIMELINE.length - 1 ? "disabled" : ""} data-tl="${i + 1}">Келесі ›</button></div></div>`;
+    $$("[data-tl]", tlCard).forEach((b) => b.onclick = () => { renderTl(+b.dataset.tl); tl.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" }); });
   }
   D.TIMELINE.forEach((t, i) => {
     const b = h(`<button role="tab"><span class="yr">${esc(t.year)}</span><span class="dot"></span><span class="lab">${esc(t.short)}</span></button>`);
@@ -430,7 +431,7 @@
       const rel = D.MAP.links.filter((l) => l.from === id || l.to === id);
       info.innerHTML = `<span class="eyebrow">${esc(p.name)}</span><h3 style="font-size:1.5rem">${esc(p.name)}</h3>${chip(p.kind)}<p>${esc(p.text)}</p>
         ${rel.length ? `<div class="grid" style="gap:6px">${rel.map((l) => `<span class="src">— ${esc(l.label)}</span>`).join("")}</div>` : ""}
-        ${p.art ? `<div class="cta"><button class="btn small primary" data-art="${p.art}">Толығырақ оқу</button></div>` : ""}`;
+        ${p.art && ART.A[p.art] ? `<div class="article map-article"><h4>${esc(ART.A[p.art].title)}</h4>${ART.A[p.art].body}</div>` : ""}`;
       beep(880, 0.05, 0.03);
     };
     $$(".city", box).forEach((g) => { g.addEventListener("click", () => sel(g.dataset.id)); g.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); sel(g.dataset.id); } }); });
